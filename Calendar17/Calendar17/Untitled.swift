@@ -18,7 +18,7 @@ struct Untitled: View {
     var body: some View {
         HStack {
             ForEach(0..<5){ index in
-                Rectangle().stroke(.pink, lineWidth: 2).frame(width:55,height:120)
+                Rectangle().stroke(.purple, lineWidth: 2).frame(width:55,height:120)
             }
             
         }
