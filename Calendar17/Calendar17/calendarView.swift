@@ -62,7 +62,7 @@ struct calendarView: View {
                         }
                         Spacer().frame(width: 40)
                         NavigationLink{
-                            cash()
+                            CashView()
                         } label: {
                             VStack{
                                 Image("money-3")

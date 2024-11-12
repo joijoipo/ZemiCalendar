@@ -10,6 +10,10 @@ import CoreData
 
 struct CalendarList: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
+    var workDataList: FetchedResults<WorkData>
+    
     @State private var isPresented: Bool = false
     
     @Binding var year : Int
@@ -154,7 +158,7 @@ struct CalendarList: View {
                             isPresented = true //trueにしないと画面遷移されない
                         }) { Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
                             }.fullScreenCover(isPresented: $isPresented) {
-                                cash()
+                                CashView()
                                 }
                     }
                 }

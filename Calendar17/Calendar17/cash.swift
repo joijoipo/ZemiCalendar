@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct cash: View {
+struct CashView: View {
     
     @State private var isPresented: Bool = false
     
@@ -15,11 +15,11 @@ struct cash: View {
         NavigationView{
             
             VStack{
-                Button(action: {isPresented = true}) {
-                    Text("新しいバイト先の入力")
-                    }.fullScreenCover(isPresented: $isPresented) {
-                        part(employmentData: EmploymentData())
-                        }
+                NavigationLink{
+                    AddWorkDataView()
+                } label: {
+                    Text("新しいバイト先を追加" ).background(.clear)
+                }
                 
                 Text("給与計算")
             
@@ -31,7 +31,7 @@ struct cash: View {
                     }
                     Spacer().frame(width: 40)
                     NavigationLink{
-                        cash()
+                        CashView()
                     } label: {
                         Text("給与計算" ).background(.clear)
                     }
@@ -52,5 +52,5 @@ struct cash: View {
 }
 
 #Preview {
-    cash()
+    CashView()
 }

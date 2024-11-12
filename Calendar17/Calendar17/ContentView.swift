@@ -70,7 +70,7 @@ struct ContentView: View {
             // シートを表示して予定追加画面に遷移
             .sheet(isPresented: $isShowingAddEventView) {
                 if let selectedDate = selectedDate {
-                    EventAddView()
+                    Test()
                 }
             }
         }
