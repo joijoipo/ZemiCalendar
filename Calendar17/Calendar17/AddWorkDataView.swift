@@ -23,8 +23,20 @@ struct AddWorkDataView: View {
                         
             DatePicker("終了日時", selection: $endTime, displayedComponents: [.hourAndMinute])
                             .datePickerStyle(GraphicalDatePickerStyle())
-            TextField("Break Time (hours)", value: $breakTime, formatter: NumberFormatter())
-            TextField("Transportation Cost", value: $transportationCost, formatter: NumberFormatter())
+            HStack {
+                Text("時給：")
+                TextField("", value: $money, formatter: NumberFormatter())
+                    .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
+            }
+            HStack {
+                Text("休憩時間：")
+                TextField("", value: $breakTime, formatter: NumberFormatter())
+            }
+            HStack {
+                Text("交通費：")
+                TextField("", value: $transportationCost, formatter: NumberFormatter())
+            }
+            
             TextField("name", text: $name)
             TextField("Notes", text: $notes)
 
