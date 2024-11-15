@@ -5,13 +5,6 @@
 //  Created by 冨成 祐羽 on 2024/11/12.
 //
 
-//
-//  Test.swift
-//  Calendar17
-//
-//  Created by 出口葵葉 on 2024/10/21.
-//
-
 import SwiftUI
 
 struct Untitled: View {

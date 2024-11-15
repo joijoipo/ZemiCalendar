@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		931DF5C02CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 931DF5BE2CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld */; };
+		93318DCF2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93318DCD2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift */; };
+		93318DD02CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93318DCE2CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift */; };
+		93318DD62CE73408000A8AD9 /* AddPartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93318DD52CE733F4000A8AD9 /* AddPartView.swift */; };
 		9350C1A32CC630C9008A3BA3 /* holiday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350C1A22CC630C9008A3BA3 /* holiday.swift */; };
 		9350C1A52CC65A2F008A3BA3 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350C1A42CC65A2F008A3BA3 /* Test.swift */; };
 		9350C1A72CCA0194008A3BA3 /* api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350C1A62CCA0194008A3BA3 /* api.swift */; };
-		9359E8352CE1DE0100299D82 /* WorkData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9359E8332CE1DE0100299D82 /* WorkData+CoreDataClass.swift */; };
-		9359E8362CE1DE0100299D82 /* WorkData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9359E8342CE1DE0100299D82 /* WorkData+CoreDataProperties.swift */; };
 		935BD8302CA4779700FCBBF8 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935BD82F2CA4779700FCBBF8 /* CalendarModel.swift */; };
 		9368C9C52CD33F64005BF9C0 /* TotalCash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368C9C42CD33F64005BF9C0 /* TotalCash.swift */; };
 		9368C9C72CD34B4E005BF9C0 /* okane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368C9C62CD34B4E005BF9C0 /* okane.swift */; };
@@ -38,14 +39,15 @@
 
 /* Begin PBXFileReference section */
 		931DF5BF2CCF2B6B0014B1F9 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		93318DCD2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		93318DCE2CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		93318DD52CE733F4000A8AD9 /* AddPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPartView.swift; sourceTree = "<group>"; };
 		934CC8B32CDC614200B82C55 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		9350C1A22CC630C9008A3BA3 /* holiday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = holiday.swift; sourceTree = "<group>"; };
 		9350C1A42CC65A2F008A3BA3 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		9350C1A62CCA0194008A3BA3 /* api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = api.swift; sourceTree = "<group>"; };
 		9359E82D2CDC855100299D82 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		9359E8322CE1DD8800299D82 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
-		9359E8332CE1DE0100299D82 /* WorkData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9359E8342CE1DE0100299D82 /* WorkData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		935BD82F2CA4779700FCBBF8 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		9368C9C42CD33F64005BF9C0 /* TotalCash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCash.swift; sourceTree = "<group>"; };
 		9368C9C62CD34B4E005BF9C0 /* okane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = okane.swift; sourceTree = "<group>"; };
@@ -101,8 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				C6246F362CE300DE00981B23 /* Untitled.swift */,
-				9359E8332CE1DE0100299D82 /* WorkData+CoreDataClass.swift */,
-				9359E8342CE1DE0100299D82 /* WorkData+CoreDataProperties.swift */,
+				93318DCE2CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift */,
+				93318DCD2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift */,
 				931DF5BE2CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld */,
 				93B398C12CA2765B0069D8B9 /* Calendar17App.swift */,
 				9350C1A62CCA0194008A3BA3 /* api.swift */,
@@ -116,6 +118,7 @@
 				93B398DD2CA28AA70069D8B9 /* calendarView.swift */,
 				93B398CF2CA276EB0069D8B9 /* weekday.swift */,
 				9350C1A22CC630C9008A3BA3 /* holiday.swift */,
+				93318DD52CE733F4000A8AD9 /* AddPartView.swift */,
 				93B398D72CA283390069D8B9 /* zeller.swift */,
 				93B398D92CA286840069D8B9 /* week.swift */,
 				93C128E72CAE6AAE00C90369 /* cash.swift */,
@@ -221,16 +224,17 @@
 				9350C1A52CC65A2F008A3BA3 /* Test.swift in Sources */,
 				93B398C42CA2765B0069D8B9 /* ContentView.swift in Sources */,
 				93C128E82CAE6AAF00C90369 /* cash.swift in Sources */,
+				93318DCF2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift in Sources */,
+				93318DD02CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift in Sources */,
 				93B398D82CA283390069D8B9 /* zeller.swift in Sources */,
 				93B398C22CA2765B0069D8B9 /* Calendar17App.swift in Sources */,
 				93B398DA2CA286840069D8B9 /* week.swift in Sources */,
+				93318DD62CE73408000A8AD9 /* AddPartView.swift in Sources */,
 				93D726BA2CB380FA00CCC15E /* AddWorkDataView.swift in Sources */,
 				93B398DC2CA289690069D8B9 /* currentMonth.swift in Sources */,
 				93C128EA2CAE6ABD00C90369 /* other.swift in Sources */,
 				93B357472CDBC8F90019DF49 /* wakudata.swift in Sources */,
 				93B398D02CA276EB0069D8B9 /* weekday.swift in Sources */,
-				9359E8352CE1DE0100299D82 /* WorkData+CoreDataClass.swift in Sources */,
-				9359E8362CE1DE0100299D82 /* WorkData+CoreDataProperties.swift in Sources */,
 				9368C9C52CD33F64005BF9C0 /* TotalCash.swift in Sources */,
 				931DF5C02CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld in Sources */,
 				935BD8302CA4779700FCBBF8 /* CalendarModel.swift in Sources */,

@@ -42,8 +42,11 @@ struct CashView: View {
                     } label: {
                         Text("給与合計" ).background(.clear)
                     }
-                    
-                    
+                }
+                NavigationLink{
+                    AddPartView()
+                } label: {
+                    Text("富成が使ってます" ).background(.clear)
                 }
                 
             }
