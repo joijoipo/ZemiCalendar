@@ -47,86 +47,62 @@ struct CalendarList: View {
         }
     }
     
-    func renderWeek4() -> some View { //4週目
-        return HStack(spacing: 0){
-            if self.lastweeknumber != 0{
-                ForEach(0..<self.lastweeknumber,id:\.self){ index in
-                    let day = (((7-self.startdaynumber)+1+index)+14)
-                    // 予定があるかをフィルタリング
-                    let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
-                    }
-                    
-                    ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
-                        
-                        VStack {
-                            Text("\(day)")
-                                .font(.system(size: 20))
-                                .foregroundColor(getTextColor(for: day))
-                            
-                            // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                        }
-                    }
-                }
-            }else{
-                ForEach(0..<7,id:\.self){ index in
-                    let day = (((7-self.startdaynumber)+1+index)+14)
-                    // 予定があるかをフィルタリング
-                    let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
-                    }
-                    
-                    ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
-                        
-                        VStack {
-                            Text("\(day)")
-                                .font(.system(size: 20))
-                                .foregroundColor(getTextColor(for: day))
-                            
-                            // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     func renderWeek5() -> some View { //5週目
         return HStack(spacing: 0){
             if self.lastweeknumber != 0{
-                ForEach(0..<self.lastweeknumber,id:\.self){ index in
-                    ZStack(alignment: .top){
-                        Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("\(((7-self.startdaynumber)+1+index)+21)")
-                            .font(.system(size: 20))
-                            .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+21)))
+                ForEach(0..<self.lastweeknumber, id:\.self) { index in
+                    let day = (((7-self.startdaynumber)+1+index)+21)
+                    // 予定があるかをフィルタリング
+                    let scheduledEvents = workDataList.filter {
+                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                    }
+                    
+                    ZStack(alignment: .top) {
+                        Rectangle()
+                            .stroke(.gray, lineWidth: 0.2)
+                            .frame(width: 55, height: Hei())
+                        
+                        VStack {
+                            Text("\(day)")
+                                .font(.system(size: 20))
+                                .foregroundColor(getTextColor(for: day))
+                            
+                            // 予定の表示を共通関数で呼び出す
+                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                        }
                     }
                 }
                 
                 ForEach(0..<(7-self.lastweeknumber),id:\.self){ index in
                     ZStack{
                         Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("")
+                        Text("おい")
                             .font(.system(size: 20))
                             .foregroundColor(.black)
                         
                     }
                 }
             }else{
-                ForEach(0..<7,id:\.self){ index in
-                    ZStack(alignment: .top){
-                        Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("\(((7-self.startdaynumber)+1+index)+21)")
-                            .font(.system(size: 20))
-                            .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+21)))
+                ForEach(0..<self.column, id:\.self) { index in
+                    let day = (((7-self.startdaynumber)+1+index)+21)
+                    // 予定があるかをフィルタリング
+                    let scheduledEvents = workDataList.filter {
+                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                    }
+                    
+                    ZStack(alignment: .top) {
+                        Rectangle()
+                            .stroke(.gray, lineWidth: 0.2)
+                            .frame(width: 55, height: Hei())
+                        
+                        VStack {
+                            Text("\(day)")
+                                .font(.system(size: 20))
+                                .foregroundColor(getTextColor(for: day))
+                            
+                            // 予定の表示を共通関数で呼び出す
+                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                        }
                     }
                 }
             }
@@ -137,29 +113,57 @@ struct CalendarList: View {
     func renderWeek6() -> some View { //6週目
         return HStack(spacing: 0){
             if self.lastweeknumber != 0{
-                ForEach(0..<self.lastweeknumber,id:\.self){ index in
-                    ZStack(alignment: .top){
-                        Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("\(((7-self.startdaynumber)+1+index)+28)")
-                            .font(.system(size: 20))
-                            .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+28)))
+                ForEach(0..<self.lastweeknumber, id:\.self) { index in
+                    let day = (((7-self.startdaynumber)+1+index)+28)
+                    // 予定があるかをフィルタリング
+                    let scheduledEvents = workDataList.filter {
+                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                    }
+                    
+                    ZStack(alignment: .top) {
+                        Rectangle()
+                            .stroke(.gray, lineWidth: 0.2)
+                            .frame(width: 55, height: Hei())
+                        
+                        VStack {
+                            Text("\(day)")
+                                .font(.system(size: 20))
+                                .foregroundColor(getTextColor(for: day))
+                            
+                            // 予定の表示を共通関数で呼び出す
+                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                        }
                     }
                 }
                 ForEach(0..<(7-self.lastweeknumber),id:\.self){ index in
                     ZStack{
                         Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("iu")
+                        Text("")
                             .font(.system(size: 20))
                             .foregroundColor(.yellow)
                     }
                 }
             }else{
-                ForEach(0..<self.lastweeknumber,id:\.self){ index in
-                    ZStack(alignment: .top){
-                        Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("\(((7-self.startdaynumber)+1+index)+28)")
-                            .font(.system(size: 20))
-                            .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+28)))
+                ForEach(0..<self.column, id:\.self) { index in
+                    let day = (((7-self.startdaynumber)+1+index)+28)
+                    // 予定があるかをフィルタリング
+                    let scheduledEvents = workDataList.filter {
+                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                    }
+                    
+                    ZStack(alignment: .top) {
+                        Rectangle()
+                            .stroke(.gray, lineWidth: 0.2)
+                            .frame(width: 55, height: Hei())
+                        
+                        VStack {
+                            Text("\(day)")
+                                .font(.system(size: 20))
+                                .foregroundColor(getTextColor(for: day))
+                            
+                            // 予定の表示を共通関数で呼び出す
+                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                        }
                     }
                 }
             }
@@ -298,42 +302,58 @@ struct CalendarList: View {
                     }
                 }
             }
+            
+            // ４週目の表示部分
+            HStack(spacing: 0) {
+                ForEach(0..<self.column, id: \.self) { index in
+                    let day = (((7-self.startdaynumber)+1+index)+14)
+                    let scheduledEvents = workDataList.filter {
+                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                    }
+                    
+                    ZStack(alignment: .top) {
+                        Rectangle()
+                            .stroke(.gray, lineWidth: 0.2)
+                            .frame(width: 55, height: Hei())
+                        
+                        VStack {
+                            Text("\(day)")
+                                .font(.system(size: 20))
+                                .foregroundColor(getTextColor(for: day))
+                            
+                            // 予定の表示を共通関数で呼び出す
+                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                        }
+                    }
+                }
+            }
 
             
-            // 4,5,6週
-            if self.weeknumber == 4{
-                renderWeek4()
-            }else if self.weeknumber == 5{
-                HStack(spacing: 0){
-                    ForEach(0..<self.column,id:\.self){ index in
-                        ZStack(alignment: .top){
-                            Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                            Text("\(((7-self.startdaynumber)+1+index)+14)")
-                                .font(.system(size: 20))
-                                .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+14)))
-                        }
-                    }
-                }
+            //5,6週
+            if self.weeknumber == 5{
                 renderWeek5()
             }else if self.weeknumber == 6{
-                HStack(spacing: 0){
-                    ForEach(0..<self.column,id:\.self){ index in
-                        ZStack(alignment: .top){
-                            Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                            Text("\(((7-self.startdaynumber)+1+index)+14)")
-                                .font(.system(size: 20))
-                                .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+14)))
+                HStack(spacing: 0) {
+                    ForEach(0..<self.column, id:\.self) { index in
+                        let day = (((7-self.startdaynumber)+1+index)+21)
+                        // 予定があるかをフィルタリング
+                        let scheduledEvents = workDataList.filter {
+                            Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                         }
-                    }
-                }
-                HStack(spacing: 0){
-                    ForEach(0..<self.column,id:\.self){ index in
-                        ZStack(alignment: .top){
-                            Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                            Text("\(((7-self.startdaynumber)+1+index)+21)")
-                                .font(.system(size: 20))
-                                .foregroundColor(getTextColor(for: (((7-self.startdaynumber)+1+index)+21)))
+                        
+                        ZStack(alignment: .top) {
+                            Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())
                             
+                            VStack {
+                                Text("\(day)")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(getTextColor(for: day))
+                                
+                                // 予定の表示を共通関数で呼び出す
+                                renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            }
                         }
                     }
                 }
