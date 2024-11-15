@@ -38,9 +38,9 @@ struct CashView: View {
                     Spacer().frame(width: 40)
                     
                     NavigationLink{
-                        other()
+                        TotalCash()
                     } label: {
-                        Text("その他" ).background(.clear)
+                        Text("給与合計" ).background(.clear)
                     }
                     
                     

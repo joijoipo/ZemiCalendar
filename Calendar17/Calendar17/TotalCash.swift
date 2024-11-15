@@ -13,24 +13,28 @@ struct TotalCash: View {
     @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
     var workDataList: FetchedResults<WorkData>
     
-    private var totalWage: Double {
+    private var totalWage: Int {
         workDataList.reduce(0) { total, workData in
             let hourlyWage = workData.money  // 時給
             let startTime = workData.startTime ?? Date()
             let endTime = workData.endTime ?? Date()
-            let overtime = workData.overTime ?? Date()
             
-            // 通常勤務時間の計算 (通常勤務時間を8時間に設定)
-            let workingHours = endTime.timeIntervalSince(startTime) / 3600.0
-            let standardWorkingHours: Double = 8.0 // 通常勤務時間を8時間と仮定
-            let regularHours = max(workingHours - standardWorkingHours, 0)  // 通常勤務時間
-            let overtimeHours = max(overtime.timeIntervalSince(startTime) / 3600.0, 0)  // 残業時間
+            // 通常勤務時間の設定
+            let standardWorkingSeconds: Double = 8.0 * 3600.0  // 8時間を秒に変換
             
-            // 給与計算
-            let regularWage = hourlyWage * regularHours
-            let overtimeWage = hourlyWage * 1.5 * overtimeHours  // 残業代（1.5倍）
+            // 勤務時間の計算（秒単位）
+            let workingSeconds = endTime.timeIntervalSince(startTime)  // 合計勤務時間（秒単位）
             
-            return total + regularWage + overtimeWage
+            // 通常勤務時間と残業時間を秒単位で分ける
+            let regularSeconds = min(workingSeconds, standardWorkingSeconds)  // 最大でも8時間分の秒数
+            let overtimeSeconds = max(workingSeconds - standardWorkingSeconds, 0)  // 8時間を超えた秒数
+            
+            // 給与計算（秒単位を時間単位に変換）
+            let regularWage = hourlyWage * (regularSeconds / 3600.0)
+            let overtimeWage = hourlyWage * 1.5 * (overtimeSeconds / 3600.0)
+            
+            // 給与合計を四捨五入して整数に
+            return total + Int((regularWage + overtimeWage).rounded())
         }
     }
     
@@ -40,7 +44,7 @@ struct TotalCash: View {
                 .font(.title)
                 .padding()
             
-            Text("合計給与: ¥\(totalWage, specifier: "%.2f")")
+            Text("合計給与: ¥\(totalWage)")
                 .font(.headline)
                 .padding()
 
@@ -49,8 +53,6 @@ struct TotalCash: View {
         .padding()
     }
 }
-
-
 
 #Preview {
     TotalCash()
