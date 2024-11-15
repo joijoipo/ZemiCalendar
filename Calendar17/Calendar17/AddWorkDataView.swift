@@ -17,20 +17,10 @@ struct AddWorkDataView: View {
 
     var body: some View {
         Form {
-            DatePicker("Work Date", selection: $workDate, displayedComponents: .date)
-           DatePicker("開始日時", selection: $startTime, displayedComponents: [.hourAndMinute])
-                            .datePickerStyle(GraphicalDatePickerStyle())
-                        
-            DatePicker("終了日時", selection: $endTime, displayedComponents: [.hourAndMinute])
-                            .datePickerStyle(GraphicalDatePickerStyle())
             HStack {
                 Text("時給：")
                 TextField("", value: $money, formatter: NumberFormatter())
                     .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
-            }
-            HStack {
-                Text("休憩時間：")
-                TextField("", value: $breakTime, formatter: NumberFormatter())
             }
             HStack {
                 Text("交通費：")
