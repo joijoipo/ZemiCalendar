@@ -15,27 +15,27 @@ struct TotalCash: View {
     
     private var totalWage: Int {
         workDataList.reduce(0) { total, workData in
-            let hourlyWage = workData.money  // 時給
-            let startTime = workData.startTime ?? Date()
-            let endTime = workData.endTime ?? Date()
-            
-            // 通常勤務時間の設定
-            let standardWorkingSeconds: Double = 8.0 * 3600.0  // 8時間を秒に変換
-            
-            // 勤務時間の計算（秒単位）
-            let workingSeconds = endTime.timeIntervalSince(startTime)  // 合計勤務時間（秒単位）
-            
-            // 通常勤務時間と残業時間を秒単位で分ける
-            let regularSeconds = min(workingSeconds, standardWorkingSeconds)  // 最大でも8時間分の秒数
-            let overtimeSeconds = max(workingSeconds - standardWorkingSeconds, 0)  // 8時間を超えた秒数
-            
-            // 給与計算（秒単位を時間単位に変換）
-            let regularWage = hourlyWage * (regularSeconds / 3600.0)
-            let overtimeWage = hourlyWage * 1.5 * (overtimeSeconds / 3600.0)
-            
-            // 給与合計を四捨五入して整数に
-            return total + Int((regularWage + overtimeWage).rounded())
+            total + calculateWage(for: workData)
         }
+    }
+    
+    private func calculateWage(for workData: WorkData) -> Int {
+        let hourlyWage = workData.money
+        let startTime = workData.startTime ?? Date()
+        let endTime = workData.endTime ?? Date()
+
+        let standardWorkingSeconds: Double = 8.0 * 3600.0
+        let workingSeconds = endTime.timeIntervalSince(startTime)
+        let regularSeconds = min(workingSeconds, standardWorkingSeconds)
+        let overtimeSeconds = max(workingSeconds - standardWorkingSeconds, 0)
+
+        let regularHours = (regularSeconds / 3600.0).rounded(.down)
+        let overtimeHours = (overtimeSeconds / 3600.0).rounded(.down)
+
+        let regularWage = hourlyWage * regularHours
+        let overtimeWage = hourlyWage * 1.5 * overtimeHours
+
+        return Int(regularWage + overtimeWage)
     }
     
     var body: some View {
@@ -44,6 +44,7 @@ struct TotalCash: View {
                 .font(.title)
                 .padding()
             
+            // ここで totalWage を表示
             Text("合計給与: ¥\(totalWage)")
                 .font(.headline)
                 .padding()

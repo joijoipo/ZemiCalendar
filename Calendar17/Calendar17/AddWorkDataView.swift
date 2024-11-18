@@ -22,6 +22,12 @@ struct AddWorkDataView: View {
                 TextField("", value: $money, formatter: NumberFormatter())
                     .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
             }
+            
+            DatePicker("開始日時", selection: $startTime, displayedComponents: [.hourAndMinute])
+                                        .datePickerStyle(GraphicalDatePickerStyle())
+
+                        DatePicker("終了日時", selection: $endTime, displayedComponents: [.hourAndMinute])
+                                        .datePickerStyle(GraphicalDatePickerStyle())
             HStack {
                 Text("交通費：")
                 TextField("", value: $transportationCost, formatter: NumberFormatter())
