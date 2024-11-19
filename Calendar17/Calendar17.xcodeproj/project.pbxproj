@@ -36,6 +36,8 @@
 		93C128EA2CAE6ABD00C90369 /* other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C128E92CAE6ABD00C90369 /* other.swift */; };
 		93D726BA2CB380FA00CCC15E /* AddWorkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */; };
 		C6246F372CE300E600981B23 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6246F362CE300DE00981B23 /* Untitled.swift */; };
+		C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */; };
+		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		93C128E92CAE6ABD00C90369 /* other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = other.swift; sourceTree = "<group>"; };
 		93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkDataView.swift; sourceTree = "<group>"; };
 		C6246F362CE300DE00981B23 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				C6246F362CE300DE00981B23 /* Untitled.swift */,
+				C66787572CEC1C500003572C /* Event+CoreDataClass.swift */,
+				C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */,
 				93318DCE2CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift */,
 				93318DCD2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift */,
 				931DF5BE2CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld */,
@@ -224,7 +230,9 @@
 				9397EA5A2CEB21E000C7FCF2 /* AddEventView.swift in Sources */,
 				C6246F372CE300E600981B23 /* Untitled.swift in Sources */,
 				93B398E02CA292EC0069D8B9 /* CalendarList.swift in Sources */,
+				C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */,
 				93B356B52CDB80C00019DF49 /* Persistence.swift in Sources */,
+				C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */,
 				9350C1A52CC65A2F008A3BA3 /* Test.swift in Sources */,
 				93B398C42CA2765B0069D8B9 /* ContentView.swift in Sources */,
 				93C128E82CAE6AAF00C90369 /* cash.swift in Sources */,

@@ -223,7 +223,7 @@ struct CalendarList: View {
                             isPresented = true //trueにしないと画面遷移されない
                         }) { Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
                             }.fullScreenCover(isPresented: $isPresented) {
-                                CashView()
+                                AddEventView()
                                 }
                     }
                 }
