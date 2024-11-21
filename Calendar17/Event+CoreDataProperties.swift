@@ -2,7 +2,7 @@
 //  Event+CoreDataProperties.swift
 //  Calendar17
 //
-//  Created by 冨成 祐羽 on 2024/11/19.
+//  Created by 冨成 祐羽 on 2024/11/21.
 //
 //
 
@@ -16,17 +16,18 @@ extension Event {
         return NSFetchRequest<Event>(entityName: "Event")
     }
 
-    @NSManaged public var date: Date?
-    @NSManaged public var eventDescription: String?
-    @NSManaged public var startDate: Date?
-    @NSManaged public var name: String?
-    @NSManaged public var endDate: Date?
     @NSManaged public var color: String?
+    @NSManaged public var date: Date?
+    @NSManaged public var endDate: Date?
+    @NSManaged public var eventDescription: String?
     @NSManaged public var isNotificationEnabled: Bool
-    @NSManaged public var notificationTime: Date?
-    @NSManaged public var memo: String?
     @NSManaged public var isRecurring: Bool
+    @NSManaged public var memo: String?
+    @NSManaged public var name: String?
+    @NSManaged public var notificationTime: Date?
     @NSManaged public var recurrenceRule: String?
+    @NSManaged public var startDate: Date?
+    @NSManaged public var id: UUID?
 
 }
 
