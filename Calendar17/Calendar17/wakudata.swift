@@ -13,7 +13,7 @@ struct wakudata: View {
     // WorkData の FetchRequest
     let workDataFetchRequest: FetchRequest<WorkData> = FetchRequest(
         entity: WorkData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)]
+        sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.startTime, ascending: true)]
     )
     var workDataList: FetchedResults<WorkData> {
         workDataFetchRequest.wrappedValue
@@ -45,6 +45,16 @@ struct wakudata: View {
                 print("Error deleting data: \(error)")
             }
         }
+    
+    private func deleteEvent(at offsets: IndexSet) {
+            offsets.map { eventList[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+                print("Error deleting data: \(error)")
+            }
+        }
 
 
     var body: some View {
@@ -54,7 +64,6 @@ struct wakudata: View {
                 VStack(alignment: .leading, spacing: 10) {
                     VStack(alignment: .leading) {
                         Text("名前: \(workData.name ?? "")").font(.headline)
-                        Text("Date: \(workData.workDate ?? Date(), formatter: dateFormatter)").font(.subheadline)
                         Text("時給: ¥\(workData.money, specifier: "%.0f")").font(.subheadline)
                         Text("開始時刻: \(workData.startTime ?? Date(), formatter: dateFormatter)").font(.subheadline)
                         Text("終了時刻: \(workData.endTime ?? Date(), formatter: dateFormatter)").font(.subheadline)
@@ -83,6 +92,7 @@ struct wakudata: View {
                 }
                 .padding(.vertical, 5) // リスト項目の縦の間隔を調整
             }
+            .onDelete(perform: deleteEvent)
         }
     }
 }

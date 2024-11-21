@@ -13,6 +13,10 @@ struct CalendarList: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
     var workDataList: FetchedResults<WorkData>
+    @FetchRequest(
+        entity: Event.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Event.startDate, ascending: true)]
+    ) var eventList: FetchedResults<Event>
     
     @State private var isPresented: Bool = false
     
@@ -54,7 +58,7 @@ struct CalendarList: View {
                     let day = (((7-self.startdaynumber)+1+index)+21)
                     // 予定があるかをフィルタリング
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -69,6 +73,7 @@ struct CalendarList: View {
                             
                             // 予定の表示を共通関数で呼び出す
                             renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderEventDetails(for: day)
                         }
                     }
                 }
@@ -87,7 +92,7 @@ struct CalendarList: View {
                     let day = (((7-self.startdaynumber)+1+index)+21)
                     // 予定があるかをフィルタリング
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -102,6 +107,7 @@ struct CalendarList: View {
                             
                             // 予定の表示を共通関数で呼び出す
                             renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderEventDetails(for: day)
                         }
                     }
                 }
@@ -117,7 +123,7 @@ struct CalendarList: View {
                     let day = (((7-self.startdaynumber)+1+index)+28)
                     // 予定があるかをフィルタリング
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -148,7 +154,7 @@ struct CalendarList: View {
                     let day = (((7-self.startdaynumber)+1+index)+28)
                     // 予定があるかをフィルタリング
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -205,6 +211,37 @@ struct CalendarList: View {
         }
         .frame(maxWidth: 55, alignment: .leading) // セル幅を制限して、親ビューの範囲も固定
     }
+    
+    func getEvents(for day: Int) -> [Event] {
+        let currentDate = Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!
+        return eventList.filter { event in
+            Calendar.current.isDate(event.startDate!, inSameDayAs: currentDate)
+        }
+    }
+    
+    func renderEventDetails(for day: Int) -> some View {
+        let events = getEvents(for: day)
+        
+        return VStack {
+            ForEach(0..<min(3, events.count), id: \.self) { index in
+                Text(events[index].name ?? "No Title")
+                    .font(.system(size: 12))
+                    .foregroundColor(.green) // イベント名は緑色で表示
+                    .lineLimit(1)
+                    .frame(width: 55, alignment: .leading)
+            }
+            if events.count > 3 {
+                Text("...")
+                    .font(.system(size: 12))
+                    .foregroundColor(.green)
+                    .lineLimit(1)
+                    .frame(width: 55, alignment: .leading)
+            }
+        }
+        .frame(maxWidth: 55, alignment: .leading)
+    }
+    
+    
 
 
 
@@ -231,7 +268,7 @@ struct CalendarList: View {
                     let day = index + 1
                     // 予定があるかをフィルタリング
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -246,6 +283,7 @@ struct CalendarList: View {
                             
                             // 予定の表示を共通関数で呼び出す
                             renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderEventDetails(for: day)
                         }
                     }
                 }
@@ -258,7 +296,7 @@ struct CalendarList: View {
                     let day = (self.column-self.startdaynumber) + 1 + index
                     // 予定があるかをフィルタリング
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -273,6 +311,7 @@ struct CalendarList: View {
                             
                             // 予定の表示を共通関数で呼び出す
                             renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderEventDetails(for: day)
                         }
                     }
                 }
@@ -283,7 +322,7 @@ struct CalendarList: View {
                 ForEach(0..<self.column, id: \.self) { index in
                     let day = ((7 - self.startdaynumber) + 1 + index) + 7
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -298,6 +337,7 @@ struct CalendarList: View {
                             
                             // 予定の表示を共通関数で呼び出す
                             renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderEventDetails(for: day)
                         }
                     }
                 }
@@ -308,7 +348,7 @@ struct CalendarList: View {
                 ForEach(0..<self.column, id: \.self) { index in
                     let day = (((7-self.startdaynumber)+1+index)+14)
                     let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                     }
                     
                     ZStack(alignment: .top) {
@@ -323,6 +363,7 @@ struct CalendarList: View {
                             
                             // 予定の表示を共通関数で呼び出す
                             renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderEventDetails(for: day)
                         }
                     }
                 }
@@ -338,7 +379,7 @@ struct CalendarList: View {
                         let day = (((7-self.startdaynumber)+1+index)+21)
                         // 予定があるかをフィルタリング
                         let scheduledEvents = workDataList.filter {
-                            Calendar.current.isDate($0.workDate!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
+                            Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
                         }
                         
                         ZStack(alignment: .top) {
@@ -353,6 +394,7 @@ struct CalendarList: View {
                                 
                                 // 予定の表示を共通関数で呼び出す
                                 renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                                renderEventDetails(for: day)
                             }
                         }
                     }
