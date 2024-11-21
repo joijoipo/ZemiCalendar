@@ -25,20 +25,23 @@ struct TotalCash: View {
         let startTime = workData.startTime ?? Date()
         let endTime = workData.endTime ?? Date()
 
-        // 分単位での計算
-        let workingMinutes = endTime.timeIntervalSince(startTime) / 60 // 総労働時間（分）
-        let standardWorkingMinutes: Double = 8.0 * 60.0               // 8時間分の分数
+        // 総労働時間を分単位（秒を繰り上げ）で計算
+        let components = Calendar.current.dateComponents([.minute, .second], from: startTime, to: endTime)
+        let minutes = components.minute ?? 0
+        let seconds = components.second ?? 0
+        let workingMinutes = seconds > 0 ? minutes + 1 : minutes
 
-        // 通常勤務と残業の分数
+        // 通常労働時間と残業時間を分ける
+        let standardWorkingMinutes: Int = 8 * 60 // 8時間分の分数
         let regularMinutes = min(workingMinutes, standardWorkingMinutes)
         let overtimeMinutes = max(workingMinutes - standardWorkingMinutes, 0)
 
-        // 1分あたりの賃金を計算
+        // 1分あたりの賃金
         let minuteWage = hourlyWage / 60.0
 
         // 通常給与と残業給与の計算
-        let regularWage = minuteWage * regularMinutes
-        let overtimeWage = minuteWage * 1.5 * overtimeMinutes
+        let regularWage = Double(regularMinutes) * minuteWage
+        let overtimeWage = Double(overtimeMinutes) * minuteWage * 1.5
 
         return Int(regularWage + overtimeWage)
     }
