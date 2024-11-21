@@ -10,6 +10,7 @@ import SwiftUI
 struct wakudata: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
+    
     var workDataList: FetchedResults<WorkData>
     
     private let dateFormatter: DateFormatter = {
@@ -33,6 +34,7 @@ struct wakudata: View {
 
     var body: some View {
         List{
+            Text("アルバイト↓")
             ForEach(workDataList) { workData in
                 VStack(alignment: .leading, spacing: 10) {
                     VStack(alignment: .leading) {
@@ -51,6 +53,8 @@ struct wakudata: View {
                 .padding(.vertical, 5) // リスト項目の縦の間隔を調整
             }
             .onDelete(perform: deleteWorkData)
+            
+            Text("イベント↓")
         }
     }
 }
