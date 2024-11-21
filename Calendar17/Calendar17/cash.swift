@@ -48,6 +48,11 @@ struct CashView: View {
                 } label: {
                     Text("富成が使ってます" ).background(.clear)
                 }
+                NavigationLink{
+                    AddEventView()
+                } label: {
+                    Text("イベント（富成が使ってます）" ).background(.clear)
+                }
                 
             }
         }.navigationBarBackButtonHidden(true)
