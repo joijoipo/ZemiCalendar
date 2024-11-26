@@ -56,8 +56,8 @@ struct calendarView: View {
                             VStack{
                                 Image("cal-3")
                                     .resizable()
-                                    .frame(width:40, height:40)
-                                Text("カレンダー" ).background(.clear)
+                                    .frame(width:30, height:30)
+                                Text("カレンダー" ).tint(Color(hex: "#f1f2f2"))
                             }
                         }
                         Spacer().frame(width: 40)
@@ -67,8 +67,8 @@ struct calendarView: View {
                             VStack{
                                 Image("money-3")
                                     .resizable()
-                                    .frame(width:40, height:40)
-                                Text("給与計算" ).background(.clear)
+                                    .frame(width:40, height:30)
+                                Text("給与計算" ).tint(Color(hex: "#f1f2f2"))
                             }
                         }
                         Spacer().frame(width: 40)
@@ -79,12 +79,12 @@ struct calendarView: View {
                             VStack{
                                 Image("other")
                                     .resizable()
-                                    .frame(width:40, height:40)
-                                Text("その他" ).background(.clear)
+                                    .frame(width:30, height:30)
+                                Text("その他" ).tint(Color(hex: "#f1f2f2"))
                             }
                         }
                         
-                    }.frame(width: 1000, height: 60).background(.yellow)
+                    }.frame(width: 1000, height: 60).background(Color(hex: "#00abc1"))
                     
                     
                 }
