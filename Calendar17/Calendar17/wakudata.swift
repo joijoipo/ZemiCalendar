@@ -65,6 +65,7 @@ struct wakudata: View {
                     VStack(alignment: .leading) {
                         Text("名前: \(workData.name ?? "")").font(.headline)
                         Text("時給: ¥\(workData.money, specifier: "%.0f")").font(.subheadline)
+                        Text("深夜給: ¥\(workData.premiumWages, specifier: "%.0f")").font(.subheadline)
                         Text("開始時刻: \(workData.startTime ?? Date(), formatter: dateFormatter)").font(.subheadline)
                         Text("終了時刻: \(workData.endTime ?? Date(), formatter: dateFormatter)").font(.subheadline)
                         Text("めも: \(workData.notes ?? "")").font(.subheadline)

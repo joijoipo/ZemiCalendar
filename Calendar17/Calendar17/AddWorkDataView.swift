@@ -11,6 +11,8 @@ struct AddWorkDataView: View {
     @State private var name = ""
     @State private var notes = ""
     @State private var money: Double = 0
+    @State private var premiumWages: Double = 0
+    @State private var specialWages: Double = 0
     
     @State private var showingAddWorkDataView = false
     
@@ -20,6 +22,12 @@ struct AddWorkDataView: View {
             HStack {
                 Text("時給：")
                 TextField("", value: $money, formatter: NumberFormatter())
+                    .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
+            }
+            
+            HStack {
+                Text("深夜時給：")
+                TextField("", value: $premiumWages, formatter: NumberFormatter())
                     .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
             }
             
@@ -59,6 +67,8 @@ struct AddWorkDataView: View {
         newWorkData.name = name
         newWorkData.notes = notes
         newWorkData.money = money
+        newWorkData.premiumWages = premiumWages
+        newWorkData.specialWages = specialWages
 
         do {
             try viewContext.save()

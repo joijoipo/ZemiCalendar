@@ -28,6 +28,7 @@ extension WorkData {
     @NSManaged public var timeStamp: Date?
     @NSManaged public var transportationCost: Double
     @NSManaged public var workDate: Date?
+    @NSManaged public var specialWages: Double
 
 }
 
