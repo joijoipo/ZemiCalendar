@@ -72,6 +72,18 @@ struct CashView: View {
                                 Text("イベント（富成が使ってます）")
                                     .background(.clear)
                             }
+                            NavigationLink {
+                                ContentView()
+                            } label: {
+                                Text("contentVIew")
+                                    .background(.clear)
+                            }
+                            NavigationLink {
+                                copyView()
+                            } label: {
+                                Text("kぴーVIew")
+                                    .background(.clear)
+                            }
                         }
                     }
                 }

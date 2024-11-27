@@ -38,6 +38,7 @@
 		C6246F372CE300E600981B23 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6246F362CE300DE00981B23 /* Untitled.swift */; };
 		C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */; };
 		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
+		C66823052CF71161000ED318 /* copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66823042CF7115D000ED318 /* copy.swift */; };
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
 		C69732482CF59799001410CD /* EditWorkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditWorkDataView.swift */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 		C6246F362CE300DE00981B23 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C66823042CF7115D000ED318 /* copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copy.swift; sourceTree = "<group>"; };
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
 		C69732472CF5978D001410CD /* EditWorkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +131,7 @@
 				93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */,
 				C69732472CF5978D001410CD /* EditWorkDataView.swift */,
 				93B398DF2CA292EC0069D8B9 /* CalendarList.swift */,
+				C66823042CF7115D000ED318 /* copy.swift */,
 				93B398C32CA2765B0069D8B9 /* ContentView.swift */,
 				935BD82F2CA4779700FCBBF8 /* CalendarModel.swift */,
 				93B398DD2CA28AA70069D8B9 /* calendarView.swift */,
@@ -227,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C66823052CF71161000ED318 /* copy.swift in Sources */,
 				93B398DE2CA28AA70069D8B9 /* calendarView.swift in Sources */,
 				93B398D62CA281E50069D8B9 /* leapYear.swift in Sources */,
 				9368C9C72CD34B4E005BF9C0 /* okane.swift in Sources */,
