@@ -16,7 +16,15 @@ struct TotalCash: View {
     @State private var targetWage: Double = 100000 // 目標給与の初期値
     
     private var totalWage: Int {
-        workDataList.reduce(0) { total, workData in
+        // 現在時刻を基準に、終了日時が過去のデータのみ合計給与を計算
+        workDataList.filter { workData in
+            let now = Date()
+            if let endTime = workData.endTime {
+                return endTime <= now
+            }
+            return false
+        }
+        .reduce(0) { total, workData in
             total + calculateWage(for: workData)
         }
     }
@@ -24,6 +32,7 @@ struct TotalCash: View {
     private func calculateWage(for workData: WorkData) -> Int {
         let hourlyWage = workData.money
         let premiumWages = workData.premiumWages
+        let specialWages = workData.specialWages
         let startTime = workData.startTime ?? Date()
         let endTime = workData.endTime ?? Date()
 
@@ -50,7 +59,7 @@ struct TotalCash: View {
         let regularWage = Double(regularMinutes) * minuteWage
         let nightWage = Double(nightShiftMinutes) * nightMinuteWage
 
-        return Int(regularWage + nightWage)
+        return Int(regularWage + nightWage + specialWages)
     }
 
     // 深夜労働時間を計算する関数
@@ -114,4 +123,6 @@ struct TotalCash: View {
         .padding()
     }
 }
+
+
 

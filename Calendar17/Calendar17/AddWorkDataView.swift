@@ -31,6 +31,12 @@ struct AddWorkDataView: View {
                     .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
             }
             
+            HStack {
+                Text("特別給料：")
+                TextField("", value: $specialWages, formatter: NumberFormatter())
+                    .keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
+            }
+            
             DatePicker("開始日時", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
             
             DatePicker("終了日時", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
