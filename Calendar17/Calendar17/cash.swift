@@ -1,16 +1,11 @@
-//
-//  cash.swift
-//  Calendar17
-//
-//  Created by 出口葵葉 on 2024/10/03.
-//
-
 import SwiftUI
+import CoreData
 
 struct CashView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
-    var workDataList: FetchedResults<WorkData>
+    // ここをWorkDataからPartTimeListに変更
+    @FetchRequest(entity: PartTimeList.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.name, ascending: true)])
+    var workers: FetchedResults<PartTimeList>
     
     @State private var showNextView = false
     
@@ -25,18 +20,20 @@ struct CashView: View {
                     
                     ScrollView {
                         VStack {
-                            ForEach(workDataList) { workData in
-                                NavigationLink(destination: EditWorkDataView(worker: workData)) {
+                            // PartTimeListの内容を表示
+                            ForEach(workers) { worker in
+                                NavigationLink(destination: EditWorkDataView(worker: worker)) {
                                     VStack(alignment: .leading, spacing: 10) {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 10)
                                                 .stroke(.black, lineWidth: 0.2)
                                                 .frame(width: 350, height: 80)
                                             VStack {
-                                                Text("名前: \(workData.name ?? "")")
+                                                // PartTimeListのnameとmoneyを表示
+                                                Text("名前: \(worker.name ?? "")")
                                                     .font(.headline)
                                                     .tint(Color.black)
-                                                Text("時給: ¥\(workData.money, specifier: "%.0f")")
+                                                Text("時給: ¥\(worker.money, specifier: "%.0f")")
                                                     .font(.subheadline)
                                             }
                                         }
@@ -44,8 +41,9 @@ struct CashView: View {
                                 }
                             }
                             
+                            // 新しいバイト先を追加
                             NavigationLink {
-                                AddWorkDataView()
+                                copyView()
                             } label: {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
@@ -57,6 +55,7 @@ struct CashView: View {
                                 }
                             }
 
+                            // その他のリンク
                             HStack {
                                 NavigationLink {
                                     TotalCash()
@@ -75,13 +74,7 @@ struct CashView: View {
                             NavigationLink {
                                 ContentView()
                             } label: {
-                                Text("contentVIew")
-                                    .background(.clear)
-                            }
-                            NavigationLink {
-                                copyView()
-                            } label: {
-                                Text("kぴーVIew")
+                                Text("シフトを追加")
                                     .background(.clear)
                             }
                         }
@@ -138,4 +131,3 @@ struct CashView: View {
 #Preview {
     CashView()
 }
-

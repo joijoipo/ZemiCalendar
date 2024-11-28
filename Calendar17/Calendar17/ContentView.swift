@@ -4,8 +4,10 @@ import Foundation
 
 struct ContentView: View {
     @State private var selectedWorker: PartTimeList?
-    @State private var hoursWorked: Double = 0.0
+    @State private var startTime = Date()
+    @State private var endTime = Date()
     @State private var money: Double = 0.0
+    @State private var specialWages: Double = 0.0
 
     // FetchRequest の設定
     @FetchRequest(
@@ -23,39 +25,31 @@ struct ContentView: View {
                     Text(worker.name ?? "Unknown").tag(worker as PartTimeList?)
                 }
             }
-
-            TextField("時給", value: $money, formatter: NumberFormatter())
-                .keyboardType(.decimalPad)
-
-            TextField("勤務時間", value: $hoursWorked, formatter: NumberFormatter())
-                .keyboardType(.decimalPad)
-
+            //HStack {
+               // Text("特別給料：")
+                //TextField("", value: $specialWages, formatter: NumberFormatter())
+                    //.keyboardType(.decimalPad) // 数字入力をしやすくするためにキーボードを指定
+            //}
+            DatePicker("開始日時", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
+            
+            DatePicker("終了日時", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
             Button("勤務記録を追加") {
                 addWorkRecord()
             }
         }
-        ForEach(workers) { workData in
-            VStack(alignment: .leading, spacing: 10) {
-                VStack(alignment: .leading) {
-                    Text("名前: \(workData.name ?? "")").font(.headline)
-                    Text("時給: ¥\(workData.money, specifier: "%.0f")").font(.subheadline)
-                }
-            }
-        }
-        
-        .padding()
     }
 
     func addWorkRecord() {
         guard let worker = selectedWorker else { return }
 
-        let totalWage = hoursWorked * money
-        print("給与計算: \(totalWage)")
+        
 
         let workRecord = WorkData(context: managedObjectContext)
         workRecord.name = worker.name
         workRecord.money = worker.money
-        workRecord.transportationCost = totalWage
+        workRecord.startTime = startTime
+        workRecord.endTime = endTime
+        workRecord.specialWages = specialWages
 
         do {
             try managedObjectContext.save() // 保存処理

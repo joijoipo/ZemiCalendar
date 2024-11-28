@@ -17,7 +17,6 @@
     <entity name="PartTimeList" representedClassName="PartTimeList" syncable="YES" codeGenerationType="class">
         <attribute name="money" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="workRecords" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkData"/>
     </entity>
     <entity name="WorkAndEvent" representedClassName="WorkAndEvent" syncable="YES" codeGenerationType="class">
         <attribute name="breakTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
