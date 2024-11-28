@@ -22,7 +22,7 @@ struct CashView: View {
                         VStack {
                             // PartTimeListの内容を表示
                             ForEach(workers) { worker in
-                                NavigationLink(destination: EditWorkDataView(worker: worker)) {
+                                NavigationLink(destination: EditPartListView(worker: worker)) {
                                     VStack(alignment: .leading, spacing: 10) {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 10)

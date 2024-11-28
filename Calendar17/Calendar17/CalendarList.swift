@@ -19,6 +19,8 @@ struct CalendarList: View {
     ) var eventList: FetchedResults<Event>
     
     @State private var isPresented: Bool = false
+    @State private var isSheetPresented = false
+    @State private var selectedDay: Int? = nil
     
     @Binding var year : Int
     @Binding var month : Int
@@ -62,9 +64,11 @@ struct CalendarList: View {
                     }
                     
                     ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
+                        Button(action: {selectedDay = day
+                            isSheetPresented = true})
+                        {Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())}
                         
                         VStack {
                             Text("\(day)")
@@ -96,9 +100,11 @@ struct CalendarList: View {
                     }
                     
                     ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
+                        Button(action: {selectedDay = day
+                            isSheetPresented = true})
+                        {Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())}
                         
                         VStack {
                             Text("\(day)")
@@ -241,13 +247,12 @@ struct CalendarList: View {
         .frame(maxWidth: 55, alignment: .leading)
     }
     
-    
-
-
-
-
-
-
+    func getWorkData(for day: Int) -> [WorkData] {
+            let currentDate = Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!
+            return workDataList.filter { workData in
+                Calendar.current.isDate(workData.startTime!, inSameDayAs: currentDate)
+            }
+        }
 
     
     var body: some View {
@@ -272,9 +277,11 @@ struct CalendarList: View {
                     }
                     
                     ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
+                        Button(action: {selectedDay = day
+                            isSheetPresented = true})
+                        {Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())}
                         
                         VStack {
                             Text("\(day)")
@@ -287,8 +294,6 @@ struct CalendarList: View {
                         }
                     }
                 }
-
-
             }
             // 2週
             HStack(spacing: 0) {
@@ -300,9 +305,11 @@ struct CalendarList: View {
                     }
                     
                     ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
+                        Button(action: {selectedDay = day
+                            isSheetPresented = true})
+                        {Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())}
                         
                         VStack {
                             Text("\(day)")
@@ -326,9 +333,11 @@ struct CalendarList: View {
                     }
                     
                     ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
+                        Button(action: {selectedDay = day
+                            isSheetPresented = true})
+                        {Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())}
                         
                         VStack {
                             Text("\(day)")
@@ -352,9 +361,11 @@ struct CalendarList: View {
                     }
                     
                     ZStack(alignment: .top) {
-                        Rectangle()
-                            .stroke(.gray, lineWidth: 0.2)
-                            .frame(width: 55, height: Hei())
+                        Button(action: {selectedDay = day
+                            isSheetPresented = true})
+                        {Rectangle()
+                                .stroke(.gray, lineWidth: 0.2)
+                                .frame(width: 55, height: Hei())}
                         
                         VStack {
                             Text("\(day)")
@@ -383,9 +394,11 @@ struct CalendarList: View {
                         }
                         
                         ZStack(alignment: .top) {
-                            Rectangle()
-                                .stroke(.gray, lineWidth: 0.2)
-                                .frame(width: 55, height: Hei())
+                            Button(action: {selectedDay = day
+                                isSheetPresented = true})
+                            {Rectangle()
+                                    .stroke(.gray, lineWidth: 0.2)
+                                    .frame(width: 55, height: Hei())}
                             
                             VStack {
                                 Text("\(day)")
@@ -400,6 +413,11 @@ struct CalendarList: View {
                     }
                 }
                 renderWeek6()
+            }
+        }
+        .sheet(isPresented: $isSheetPresented) {
+            if let selectedDay = selectedDay {
+                EventDetailView(year: self.year, month: self.month, day: selectedDay, events: getEvents(for: selectedDay), workData: getWorkData(for: selectedDay))
             }
         }
     }

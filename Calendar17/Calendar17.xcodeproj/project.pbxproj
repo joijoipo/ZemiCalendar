@@ -40,7 +40,9 @@
 		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
 		C66823052CF71161000ED318 /* copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66823042CF7115D000ED318 /* copy.swift */; };
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
-		C69732482CF59799001410CD /* EditWorkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditWorkDataView.swift */; };
+		C69732482CF59799001410CD /* EditPartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditPartListView.swift */; };
+		C6D752522CF82DCD00F5907C /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752512CF82DC100F5907C /* EventDetailView.swift */; };
+		C6D752542CF841C500F5907C /* EditWorkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752532CF841BC00F5907C /* EditWorkDataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +83,9 @@
 		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C66823042CF7115D000ED318 /* copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copy.swift; sourceTree = "<group>"; };
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
-		C69732472CF5978D001410CD /* EditWorkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkDataView.swift; sourceTree = "<group>"; };
+		C69732472CF5978D001410CD /* EditPartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPartListView.swift; sourceTree = "<group>"; };
+		C6D752512CF82DC100F5907C /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
+		C6D752532CF841BC00F5907C /* EditWorkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,12 +130,14 @@
 				93B398C52CA2765E0069D8B9 /* Assets.xcassets */,
 				93B398D12CA27D1C0069D8B9 /* AppDelegate.swift */,
 				93B398D52CA281E50069D8B9 /* leapYear.swift */,
-				9397EA592CEB21D600C7FCF2 /* AddEventView.swift */,
 				C69732452CF58D66001410CD /* Color16.swift */,
 				93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */,
-				C69732472CF5978D001410CD /* EditWorkDataView.swift */,
+				9397EA592CEB21D600C7FCF2 /* AddEventView.swift */,
+				C69732472CF5978D001410CD /* EditPartListView.swift */,
+				C6D752532CF841BC00F5907C /* EditWorkDataView.swift */,
 				93B398DF2CA292EC0069D8B9 /* CalendarList.swift */,
 				C66823042CF7115D000ED318 /* copy.swift */,
+				C6D752512CF82DC100F5907C /* EventDetailView.swift */,
 				93B398C32CA2765B0069D8B9 /* ContentView.swift */,
 				935BD82F2CA4779700FCBBF8 /* CalendarModel.swift */,
 				93B398DD2CA28AA70069D8B9 /* calendarView.swift */,
@@ -249,7 +255,9 @@
 				93C128E82CAE6AAF00C90369 /* cash.swift in Sources */,
 				93318DCF2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift in Sources */,
 				93318DD02CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift in Sources */,
+				C6D752542CF841C500F5907C /* EditWorkDataView.swift in Sources */,
 				93B398D82CA283390069D8B9 /* zeller.swift in Sources */,
+				C6D752522CF82DCD00F5907C /* EventDetailView.swift in Sources */,
 				93B398C22CA2765B0069D8B9 /* Calendar17App.swift in Sources */,
 				93B398DA2CA286840069D8B9 /* week.swift in Sources */,
 				93318DD62CE73408000A8AD9 /* AddPartView.swift in Sources */,
@@ -259,7 +267,7 @@
 				93B357472CDBC8F90019DF49 /* wakudata.swift in Sources */,
 				93B398D02CA276EB0069D8B9 /* weekday.swift in Sources */,
 				9368C9C52CD33F64005BF9C0 /* TotalCash.swift in Sources */,
-				C69732482CF59799001410CD /* EditWorkDataView.swift in Sources */,
+				C69732482CF59799001410CD /* EditPartListView.swift in Sources */,
 				931DF5C02CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld in Sources */,
 				935BD8302CA4779700FCBBF8 /* CalendarModel.swift in Sources */,
 			);

@@ -61,5 +61,5 @@ struct EditPartListView: View {
 }
 
 #Preview {
-    EditWorkDataView(worker: PartTimeList())
+    EditPartListView(worker: PartTimeList())
 }
