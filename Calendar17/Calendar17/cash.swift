@@ -66,12 +66,6 @@ struct CashView: View {
                             }
                             
                             NavigationLink {
-                                AddEventView()
-                            } label: {
-                                Text("イベント（富成が使ってます）")
-                                    .background(.clear)
-                            }
-                            NavigationLink {
                                 ContentView()
                             } label: {
                                 Text("シフトを追加")

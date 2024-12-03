@@ -72,7 +72,3 @@ struct copyView: View {
         }
     }
 }
-
-#Preview {
-    AddWorkDataView()
-}

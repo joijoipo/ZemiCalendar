@@ -261,12 +261,7 @@ struct CalendarList: View {
             HStack(spacing: 0) {
                 if self.startdaynumber != 0{     //カレンダーの最初の空白を作るコード
                     ForEach(0..<self.startdaynumber,id:\.self){ index in
-                        Button(action: {
-                            isPresented = true //trueにしないと画面遷移されない
-                        }) { Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                            }.fullScreenCover(isPresented: $isPresented) {
-                                AddEventView()
-                                }
+                        Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
                     }
                 }
                 ForEach(0..<(self.column-self.startdaynumber), id:\.self) { index in

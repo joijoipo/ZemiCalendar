@@ -15,7 +15,10 @@ struct EventDetailView: View {
                             .font(.headline)
                             .padding()
                         VStack {
-                            NavigationLink(destination: AddEventView()) {
+                            NavigationLink(destination: AddEventView(
+                                                        startDate: makeDate(year: year, month: month, day: day) ?? Date(),
+                                                        endDate: makeDate(year: year, month: month, day: day)?.addingTimeInterval(60 * 60) ?? Date()
+                                                    )) {
                                 Image(systemName: "plus.circle.fill")
                                     .font(.title)
                                     .foregroundColor(.blue)
@@ -25,7 +28,10 @@ struct EventDetailView: View {
                                 .foregroundColor(.blue)
                         }
                         VStack {
-                            NavigationLink(destination: AddWorkDataView()) {
+                            NavigationLink(destination: AddWorkDataView(
+                                                        startTime: makeDate(year: year, month: month, day: day) ?? Date(),
+                                                        endTime: makeDate(year: year, month: month, day: day)?.addingTimeInterval(60 * 60) ?? Date()
+                                                    )) {
                                 Image(systemName: "plus.circle.fill")
                                     .font(.title)
                                     .foregroundColor(.blue)
@@ -39,11 +45,13 @@ struct EventDetailView: View {
                     List {
                         Section(header: Text("イベント")) {
                             ForEach(events, id: \.self) { event in
-                                HStack{
-                                    Text(event.name ?? "No Title")
-                                        .font(.body)
-                                    Spacer()
-                                    eventTimeText(event)
+                                NavigationLink(destination: EditEventView(event: event)) {
+                                    HStack {
+                                        Text(event.name ?? "No Title")
+                                            .font(.body)
+                                        Spacer()
+                                        eventTimeText(event)
+                                    }
                                 }
                             }
                         }
@@ -96,4 +104,12 @@ struct EventDetailView: View {
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
+    
+    func makeDate(year: Int, month: Int, day: Int) -> Date? {
+            var dateComponents = DateComponents()
+            dateComponents.year = year
+            dateComponents.month = month
+            dateComponents.day = day
+            return Calendar.current.date(from: dateComponents)
+        }
 }

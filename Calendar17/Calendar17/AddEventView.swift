@@ -2,11 +2,11 @@ import SwiftUI
 import CoreData
 
 struct AddEventView: View {
+    @State var startDate: Date
+    @State var endDate: Date
     // イベントの入力データを保持するプロパティ
     @State private var name: String = ""
     @State private var memo: String = ""
-    @State private var startDate: Date = Date()
-    @State private var endDate: Date = Date()
     @State private var isNotificationEnabled: Bool = false
     @State private var notificationTime: Date = Date()
     @State private var isRecurring: Bool = false
@@ -88,9 +88,4 @@ struct AddEventView: View {
             print("保存中にエラーが発生しました: \(error.localizedDescription)")
         }
     }
-}
-
-
-#Preview {
-    AddEventView()
 }

@@ -38,6 +38,7 @@
 		C6246F372CE300E600981B23 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6246F362CE300DE00981B23 /* Untitled.swift */; };
 		C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */; };
 		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
+		C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668093C2CFECBF0004898A5 /* EditEventView.swift */; };
 		C66823052CF71161000ED318 /* copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66823042CF7115D000ED318 /* copy.swift */; };
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
 		C69732482CF59799001410CD /* EditPartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditPartListView.swift */; };
@@ -81,6 +82,7 @@
 		C6246F362CE300DE00981B23 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C668093C2CFECBF0004898A5 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		C66823042CF7115D000ED318 /* copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copy.swift; sourceTree = "<group>"; };
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
 		C69732472CF5978D001410CD /* EditPartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPartListView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				9397EA592CEB21D600C7FCF2 /* AddEventView.swift */,
 				C69732472CF5978D001410CD /* EditPartListView.swift */,
 				C6D752532CF841BC00F5907C /* EditWorkDataView.swift */,
+				C668093C2CFECBF0004898A5 /* EditEventView.swift */,
 				93B398DF2CA292EC0069D8B9 /* CalendarList.swift */,
 				C66823042CF7115D000ED318 /* copy.swift */,
 				C6D752512CF82DC100F5907C /* EventDetailView.swift */,
@@ -249,6 +252,7 @@
 				93B398E02CA292EC0069D8B9 /* CalendarList.swift in Sources */,
 				C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */,
 				93B356B52CDB80C00019DF49 /* Persistence.swift in Sources */,
+				C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */,
 				C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */,
 				9350C1A52CC65A2F008A3BA3 /* Test.swift in Sources */,
 				93B398C42CA2765B0069D8B9 /* ContentView.swift in Sources */,

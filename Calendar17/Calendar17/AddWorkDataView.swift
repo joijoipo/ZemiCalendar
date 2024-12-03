@@ -2,10 +2,12 @@ import SwiftUI
 import CoreData
 
 struct AddWorkDataView: View {
+    //引数渡さないとダメだよー
     @Environment(\.managedObjectContext) private var viewContext
+    @State var startTime: Date
+    @State var endTime: Date
+    
     @State private var workDate = Date()
-    @State private var startTime = Date()
-    @State private var endTime = Date()
     @State private var breakTime: Double = 0
     @State private var transportationCost: Double = 0
     @State private var name = ""
@@ -82,8 +84,4 @@ struct AddWorkDataView: View {
             print("Error saving data: \(error)")
         }
     }
-}
-
-#Preview {
-    AddWorkDataView()
 }
