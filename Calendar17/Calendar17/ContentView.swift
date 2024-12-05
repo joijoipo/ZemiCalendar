@@ -6,7 +6,6 @@ struct ContentView: View {
     @State private var selectedWorker: PartTimeList?
     @State private var startTime = Date()
     @State private var endTime = Date()
-    @State private var money: Double = 0.0
     @State private var specialWages: Double = 0.0
 
     // FetchRequest の設定
@@ -46,6 +45,8 @@ struct ContentView: View {
 
         let workRecord = WorkData(context: managedObjectContext)
         workRecord.name = worker.name
+        workRecord.money = worker.money
+        workRecord.transportationCost = worker.move
         workRecord.startTime = startTime
         workRecord.endTime = endTime
         workRecord.specialWages = specialWages

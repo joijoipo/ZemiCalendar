@@ -11,13 +11,10 @@ import CoreData
 struct AddNewWorkDataView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var workDate = Date()
-    @State private var startTime = Date()
-    @State private var endTime = Date()
-    @State private var breakTime: Double = 0
-    @State private var transportationCost: Double = 0
     @State private var name = ""
     @State private var notes = ""
     @State private var money: Double = 0
+    @State private var move: Double = 0
     @State private var premiumWages: Double = 0
     @State private var specialWages: Double = 0
     
@@ -40,7 +37,7 @@ struct AddNewWorkDataView: View {
             
             HStack {
                 Text("交通費：")
-                TextField("", value: $transportationCost, formatter: NumberFormatter())
+                TextField("", value: $move, formatter: NumberFormatter())
             }
             
             TextField("name", text: $name)
@@ -64,6 +61,7 @@ struct AddNewWorkDataView: View {
         let newWorkData = PartTimeList(context: viewContext)
         newWorkData.name = name
         newWorkData.money = money
+        newWorkData.move = move
 
         do {
             try viewContext.save()
