@@ -79,13 +79,46 @@ struct AddEventView: View {
         newEvent.isRecurring = isRecurring
         newEvent.recurrenceRule = recurrenceRule
         newEvent.color = color.description // 色を文字列として保存
-
         
         do {
             try PersistenceController.shared.container.viewContext.save()
+            // 通知をスケジュール
+            if isNotificationEnabled {
+                scheduleNotification(for: newEvent)
+            }
             presentationMode.wrappedValue.dismiss() // モーダルを閉じる
         } catch {
             print("保存中にエラーが発生しました: \(error.localizedDescription)")
         }
     }
+
+    private func scheduleNotification(for event: Event) {
+        let content = UNMutableNotificationContent()
+        content.title = event.name ?? "イベント"
+        content.body = event.memo ?? ""
+        content.sound = .default
+        
+        // 通知時間を設定
+        if let notificationTime = event.notificationTime {
+            let triggerDate = Calendar.current.dateComponents(
+                [.year, .month, .day, .hour, .minute],
+                from: notificationTime
+            )
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+            let request = UNNotificationRequest(
+                identifier: UUID().uuidString,
+                content: content,
+                trigger: trigger
+            )
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("通知のスケジュール中にエラーが発生しました: \(error)")
+                } else {
+                    print("通知がスケジュールされました")
+                }
+            }
+        }
+    }
+
 }

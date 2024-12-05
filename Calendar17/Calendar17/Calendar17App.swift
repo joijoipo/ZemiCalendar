@@ -13,7 +13,7 @@ struct Calendar17App: App {
     let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
-            CashView().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            calendarView().environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

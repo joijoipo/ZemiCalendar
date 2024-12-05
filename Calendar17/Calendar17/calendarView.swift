@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import UserNotifications
 
 struct calendarView: View {
     @State var year : Int = AppDelegate().year
@@ -97,10 +98,10 @@ struct calendarView: View {
                 Text("\(GetWeekNumber(year: self.year, month: self.month))")
             }
 //---------------------------------------------------------------------------
-        }.navigationBarBackButtonHidden(true)//.onAppear{
+        }.navigationBarBackButtonHidden(true).onAppear{
+            requestNotificationPermission()
             //fetchHolidays{
-                
-            //}
+            }
         //}
     }
     
@@ -121,6 +122,32 @@ struct calendarView: View {
             self.month = 12
 
         }
+    }
+    private func requestNotificationPermission() {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                if let error = error {
+                    print("通知の許可リクエストに失敗しました: \(error)")
+                }
+                if granted {
+                    print("通知が許可されました")
+                } else {
+                    print("通知が拒否されました")
+                }
+            }
+
+            // フォアグラウンド通知を処理するためにデリゲートを設定
+            UNUserNotificationCenter.current().delegate = NotificationDelegate()
+        }
+}
+
+class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
     }
 }
     

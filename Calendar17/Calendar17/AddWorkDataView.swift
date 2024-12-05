@@ -8,14 +8,13 @@ struct AddWorkDataView: View {
     @State var endTime: Date
     
     @State private var workDate = Date()
-    @State private var breakTime: Double = 0
-    @State private var transportationCost: Double = 0
+    @State private var breakTime: Double? = nil // オプショナル型に変更
+    @State private var transportationCost: Double? = nil // オプショナル型に変更
     @State private var name = ""
     @State private var notes = ""
-    @State private var money: Double = 0
+    @State private var money: Double? = nil // オプショナル型に変更
     @State private var premiumWages: Double = 0
-    @State private var specialWages: Double = 0
-    
+    @State private var specialWages: Double? = nil // オプショナル型に変更
     @State private var showingAddWorkDataView = false
     
 
@@ -70,13 +69,13 @@ struct AddWorkDataView: View {
         newWorkData.workDate = workDate
         newWorkData.startTime = startTime
         newWorkData.endTime = endTime
-        newWorkData.breakTime = breakTime
-        newWorkData.transportationCost = transportationCost
+        newWorkData.breakTime = breakTime ?? 0
+        newWorkData.transportationCost = transportationCost ?? 0
         newWorkData.name = name
         newWorkData.notes = notes
-        newWorkData.money = money
+        newWorkData.money = money ?? 0
         newWorkData.premiumWages = premiumWages
-        newWorkData.specialWages = specialWages
+        newWorkData.specialWages = specialWages ?? 0
 
         do {
             try viewContext.save()
