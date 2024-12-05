@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct copyView: View {
+struct AddNewWorkDataView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var workDate = Date()
     @State private var startTime = Date()

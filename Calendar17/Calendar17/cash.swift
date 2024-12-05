@@ -43,7 +43,7 @@ struct CashView: View {
                             
                             // 新しいバイト先を追加
                             NavigationLink {
-                                copyView()
+                                AddNewWorkDataView()
                             } label: {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)

@@ -16,6 +16,12 @@ struct TotalCash: View {
     )
     var workDataList: FetchedResults<WorkData>
     
+    @FetchRequest(
+            entity: PartTimeList.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.money, ascending: true)]
+    )
+    var partTimeList: FetchedResults<PartTimeList>
+    
     @State private var targetWage: Double = 100000 // 目標給与の初期値
 
     // 合計給与

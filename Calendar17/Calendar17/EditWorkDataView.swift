@@ -11,7 +11,12 @@ struct EditWorkDataView: View {
     @ObservedObject var workData: WorkData  // CoreDataのWorkDataを使用するため、ObservedObjectで監視
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) private var presentationMode // 画面を閉じるため
+    @FetchRequest(
+        entity: PartTimeList.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.name, ascending: true)]
+    ) var workers: FetchedResults<PartTimeList>
 
+    @State private var selectedWorker: PartTimeList?
     @State private var workName: String
     @State private var startTime: Date
     @State private var endTime: Date
@@ -26,7 +31,11 @@ struct EditWorkDataView: View {
     var body: some View {
         Form {
             Section(header: Text("アルバイト情報の編集")) {
-                TextField("仕事の名前", text: $workName)
+                Picker("アルバイトを選択", selection: $selectedWorker) {
+                    ForEach(workers, id: \.self) { worker in
+                        Text(worker.name ?? "Unknown").tag(worker as PartTimeList?)
+                    }
+                }
 
                 DatePicker("開始時間", selection: $startTime, displayedComponents: .hourAndMinute)
 
@@ -50,7 +59,9 @@ struct EditWorkDataView: View {
     }
 
     private func saveWorkData() {
-        workData.name = workName
+        guard let worker = selectedWorker else { return }
+        
+        workData.name = worker.name
         workData.startTime = startTime
         workData.endTime = endTime
 
