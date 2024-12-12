@@ -30,68 +30,89 @@ struct AddWorkDataView: View {
     }
 
     var body: some View {
-        Form {
-            // アルバイト選択のPicker
-            Picker("アルバイトを選択", selection: $selectedWorker) {
-                Text("未選択").tag(nil as PartTimeList?)
-                ForEach(workers, id: \.self) { worker in
-                    Text(worker.name ?? "Unknown").tag(worker as PartTimeList?)
+        NavigationView {
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    // フォーム部分
+                    ScrollView {
+                        Form {
+                            Section(header: Text("勤務データ")) {
+                                Picker("アルバイトを選択", selection: $selectedWorker) {
+                                    Text("未選択").tag(nil as PartTimeList?)
+                                    ForEach(workers, id: \.self) { worker in
+                                        Text(worker.name ?? "Unknown").tag(worker as PartTimeList?)
+                                    }
+                                }
+
+                                // 特別給料
+                                HStack {
+                                    Text("特別給料：")
+                                    TextField("", value: $specialWages, formatter: currencyFormatter)
+                                        .keyboardType(.decimalPad)
+                                }
+
+                                // 開始日時と終了日時
+                                DatePicker("開始日時", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
+                                DatePicker("終了日時", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
+
+                                // 交通費
+                                HStack {
+                                    Text("交通費：")
+                                    TextField("", value: $transportationCost, formatter: currencyFormatter)
+                                }
+
+                                TextField("備考", text: $notes)
+                            }
+                        }
+                        .padding(.horizontal)
+                        .frame(height: geometry.size.height * 0.6) // フォームの高さを調整
+                    }
+                    .background(Color(UIColor.systemGroupedBackground))
+
+                    Divider()
+
+                    // リスト部分
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("過去の勤務履歴から追加")
+                            .font(.headline)
+                            .padding([.top, .horizontal])
+
+                        List {
+                            ForEach(workDataList, id: \.id) { workData in
+                                Button(action: {
+                                    print("選択された勤務データ: \(workData.name ?? "未設定")")
+                                    saveWorkData(from: workData)
+                                    dismiss()
+                                }) {
+                                    HStack {
+                                        let startTime = workData.startTime.flatMap { timeFormatter.string(from: $0) } ?? "未設定"
+                                        let endTime = workData.endTime.flatMap { timeFormatter.string(from: $0) } ?? "未設定"
+                                        VStack(alignment: .leading) {
+                                            Text(workData.name ?? "未設定")
+                                                .font(.headline)
+                                            Text("\(startTime) ~ \(endTime)")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .frame(maxHeight: geometry.size.height * 0.4) // リストの高さを調整
                 }
             }
-
-            // 特別給料
-            HStack {
-                Text("特別給料：")
-                TextField("", value: $specialWages, formatter: currencyFormatter)
-                    .keyboardType(.decimalPad)
-            }
-
-            // 開始日時と終了日時
-            DatePicker("開始日時", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
-            DatePicker("終了日時", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
-
-            // 交通費
-            HStack {
-                Text("交通費：")
-                TextField("", value: $transportationCost, formatter: currencyFormatter)
-            }
-
-            TextField("Notes", text: $notes)
-
-            // 保存ボタン
-            Button("保存する") {
+            .navigationBarItems(trailing: Button(action: {
                 addWorkData()
                 dismiss()
-            }
-
-            // 過去の勤務時間を表示
-            ForEach(workDataList, id: \.id) { workData in
-                Button(action: {
-                    print("選択された勤務データ: \(workData.name ?? "未設定")")
-                    saveWorkData(from: workData)
-                    dismiss()
-                }) {
-                    HStack {
-                        // オプショナルをアンラップし、時間をフォーマット
-                        let startTime = workData.startTime.flatMap { timeFormatter.string(from: $0) } ?? "未設定"
-                        let endTime = workData.endTime.flatMap { timeFormatter.string(from: $0) } ?? "未設定"
-
-                        Text("\(workData.name ?? "未設定") \(startTime) ~ \(endTime)")
-                            .foregroundColor(.black)
-                    }
-                }
-            }
-        }
-        .padding()
-
-        // アルバイト一覧ボタン
-        Button("アルバイト一覧") {
-            showingAddWorkDataView.toggle()
-        }
-        .sheet(isPresented: $showingAddWorkDataView) {
-            wakudata() // 必要に応じてアルバイト一覧画面を表示
+            }) {
+                Text("保存")
+                    .foregroundColor(.blue)
+            })
         }
     }
+
+
 
     // 選択された勤務データを保存
     private func saveWorkData(from workData: WorkData) {
@@ -108,8 +129,10 @@ struct AddWorkDataView: View {
         let workEndHour = calendar.component(.hour, from: workData.endTime ?? Date())
         let workEndMinute = calendar.component(.minute, from: workData.endTime ?? Date())
 
-        // startTime から日付部分を取り出す
+        // startTime の日付部分を取り出す
         let startDateComponents = calendar.dateComponents([.year, .month, .day], from: startTime)
+
+        // endTime の日付部分を取り出す
         let endDateComponents = calendar.dateComponents([.year, .month, .day], from: endTime)
 
         // startTime の日付部分と workData.startTime の時間部分を組み合わせる
@@ -117,12 +140,19 @@ struct AddWorkDataView: View {
                                              minute: workStartMinute,
                                              second: 0,
                                              of: calendar.date(from: startDateComponents) ?? Date()) ?? Date()
-        
+
         // endTime の日付部分と workData.endTime の時間部分を組み合わせる
-        let updatedEndTime = calendar.date(bySettingHour: workEndHour,
+        var updatedEndTime = calendar.date(bySettingHour: workEndHour,
                                            minute: workEndMinute,
                                            second: 0,
                                            of: calendar.date(from: endDateComponents) ?? Date()) ?? Date()
+
+        // 日付をまたぐ場合の処理
+        if workData.endTime ?? Date() < workData.startTime ?? Date() {
+            // 終了時間が開始時間より前なら、翌日に設定
+            updatedEndTime = calendar.date(byAdding: .day, value: 1, to: updatedEndTime) ?? updatedEndTime
+        }
+
 
         let newWorkData = WorkData(context: viewContext)
         newWorkData.timeStamp = Date()
