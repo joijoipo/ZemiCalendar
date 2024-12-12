@@ -17,12 +17,14 @@ struct TotalCash: View {
     var workDataList: FetchedResults<WorkData>
     
     @FetchRequest(
-            entity: PartTimeList.entity(),
-            sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.money, ascending: true)]
+        entity: PartTimeList.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.money, ascending: true)]
     )
     var partTimeList: FetchedResults<PartTimeList>
     
     @State private var targetWage: Double = 100000 // 目標給与の初期値
+    @State private var innerTargetWage: Double = 50000 // 内側円グラフの目標給与
+    @State private var real: Double = 0
 
     // 合計給与
     private var totalWage: Int {
@@ -50,6 +52,7 @@ struct TotalCash: View {
         let hourlyWage = workData.money
         let premiumWages = workData.premiumWages
         let specialWages = workData.specialWages
+        let transportationCost = workData.transportationCost
         let startTime = workData.startTime ?? Date()
         let endTime = workData.endTime ?? Date()
 
@@ -62,7 +65,7 @@ struct TotalCash: View {
         let regularWage = Double(regularMinutes) * (hourlyWage / 60.0)
         let nightWage = Double(nightShiftMinutes) * (premiumWages / 60.0)
 
-        return Int(regularWage + nightWage + specialWages)
+        return Int(regularWage + nightWage + specialWages + transportationCost)
     }
     
     // 勤務時間計算
@@ -96,16 +99,15 @@ struct TotalCash: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 1) {
             // ヘッダー
             VStack {
                 Text("給与管理")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
-                
             }
-            .padding(.top)
+            .padding(40)
             
             // カードビュー
             VStack(spacing: 15) {
@@ -118,43 +120,71 @@ struct TotalCash: View {
             
             // 円グラフ
             GeometryReader { geometry in
-                ZStack {
-                    Circle()
-                        .stroke(lineWidth: 15)
-                        .opacity(0.3)
-                        .foregroundColor(.gray)
-                    
-                    Circle()
-                        .trim(from: 0.0, to: CGFloat(min(Double(totalWage) / targetWage, 1.0)))
-                        .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
-                        .foregroundColor(.blue)
-                        .rotationEffect(.degrees(-90))
-                    
-                    VStack(spacing: 8) {
-                        Text("\(Int(min(Double(totalWage) / targetWage * 100, 100)))%")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                        Text("達成率")
-                            .font(.footnote)
+                VStack {
+                    ZStack {
+                        // 外側の円グラフ
+                        Circle()
+                            .stroke(lineWidth: 15)
+                            .opacity(0.3)
                             .foregroundColor(.gray)
+                        Circle()
+                            .trim(from: 0.0, to: CGFloat(min(Double(totalWage) / targetWage, 1.0)))
+                            .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
+                            .foregroundColor(.blue)
+                            .rotationEffect(.degrees(-90))
+                        
+                        // 内側の円グラフ
+                        Circle()
+                            .stroke(lineWidth: 10)
+                            .opacity(0.3)
+                            .foregroundColor(.gray)
+                            .padding(40)
+
+                        Circle()
+                            .trim(from: 0.0, to: CGFloat(min(Double(real) / targetWage, 1.0))) // 同じ進捗率
+                            .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
+                            .foregroundColor(.green)
+                            .rotationEffect(.degrees(-90))
+                            .padding(40)
+
+                        VStack(spacing: 8) {
+                            Text("\(Int(min(Double(totalWage) / targetWage * 100, 100)))%")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.blue)
+                            Text("達成率")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                        }
                     }
+                    .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7)
+                    .padding()
+                    
+                    // 目標給与入力
+                    VStack {
+                        HStack {
+                            Text("目標給与:")
+                                .font(.headline)
+                            TextField("入力してください", value: $targetWage, format: .number)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .keyboardType(.numberPad)
+                                .frame(width: 150)
+                        }
+                        HStack {
+                            Text("実際給与:")
+                                .font(.headline)
+                            TextField("入力してください", value: $real, format: .number)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .keyboardType(.numberPad)
+                                .frame(width: 150)
+                        }
+
+                    }
+                    .padding(.horizontal)
                 }
-                .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7)
-                .padding()
+                .frame(maxWidth: .infinity, alignment: .center) // 円グラフと目標給与入力を中央配置
             }
-            .frame(height: 250)
-            
-            // 目標給与入力
-            HStack {
-                Text("目標給与:")
-                    .font(.headline)
-                TextField("入力してください", value: $targetWage, format: .number)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                    .frame(width: 150)
-            }
-            .padding(.horizontal)
+            .frame(height: 300) // 十分な高さを確保
             
             Spacer()
         }
@@ -198,6 +228,10 @@ extension WorkData {
         return endTime <= Date()
     }
 }
+
+
+
+
 
 
 
