@@ -232,7 +232,7 @@ struct CalendarList: View {
             ForEach(0..<min(3, events.count), id: \.self) { index in
                 Text(events[index].name ?? "No Title")
                     .font(.system(size: 12))
-                    .foregroundColor(.green) // イベント名は緑色で表示
+                    .foregroundColor(Color(hex: events[index].color ?? "#00ff00")) // イベント名は緑色で表示
                     .lineLimit(1)
                     .frame(width: 55, alignment: .leading)
             }
@@ -253,6 +253,17 @@ struct CalendarList: View {
                 Calendar.current.isDate(workData.startTime!, inSameDayAs: currentDate)
             }
         }
+    
+    func colorToHex(_ color: Color) -> String? {
+        if let uiColor = UIColor(color).cgColor.components {
+            let red = Int(uiColor[0] * 255)
+            let green = Int(uiColor[1] * 255)
+            let blue = Int(uiColor[2] * 255)
+            return String(format: "#%02X%02X%02X", red, green, blue)
+        }
+        return nil
+    }
+
 
     
     var body: some View {

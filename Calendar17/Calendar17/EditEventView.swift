@@ -37,6 +37,8 @@ struct EditEventView: View {
             DatePicker("開始日時", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
 
             DatePicker("終了日時", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
+            
+            Text("名前: \(event.color ?? "")").font(.headline)
 
             HStack {
                 Button("保存") {
