@@ -28,8 +28,8 @@ struct EditWorkDataView: View {
         _workName = State(initialValue: workData.name ?? "")
         _startTime = State(initialValue: workData.startTime ?? Date())
         _endTime = State(initialValue: workData.endTime ?? Date())
-        _realSTime = State(initialValue: workData.realSTime ?? Date())
-        _realETime = State(initialValue: workData.realETime ?? Date())
+        _realSTime = State(initialValue: workData.startTime ?? Date())
+        _realETime = State(initialValue: workData.endTime ?? Date())
     }
 
     var body: some View {
