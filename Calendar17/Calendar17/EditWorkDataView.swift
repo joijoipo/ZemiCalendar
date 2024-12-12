@@ -20,12 +20,16 @@ struct EditWorkDataView: View {
     @State private var workName: String
     @State private var startTime: Date
     @State private var endTime: Date
+    @State private var realSTime: Date
+    @State private var realETime: Date
 
     init(workData: WorkData) {
         self.workData = workData
         _workName = State(initialValue: workData.name ?? "")
         _startTime = State(initialValue: workData.startTime ?? Date())
         _endTime = State(initialValue: workData.endTime ?? Date())
+        _realSTime = State(initialValue: workData.realSTime ?? Date())
+        _realETime = State(initialValue: workData.realETime ?? Date())
     }
 
     var body: some View {
@@ -37,9 +41,13 @@ struct EditWorkDataView: View {
                     }
                 }
 
-                DatePicker("開始時間", selection: $startTime, displayedComponents: .hourAndMinute)
+                DatePicker("開始時間", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
 
-                DatePicker("終了時間", selection: $endTime, displayedComponents: .hourAndMinute)
+                DatePicker("終了時間", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
+                
+                DatePicker("実際の開始時間", selection: $realSTime, displayedComponents: [.date, .hourAndMinute])
+
+                DatePicker("実際の終了時間", selection: $realETime, displayedComponents: [.date, .hourAndMinute])
             }
 
             HStack {
@@ -64,6 +72,8 @@ struct EditWorkDataView: View {
         workData.name = worker.name
         workData.startTime = startTime
         workData.endTime = endTime
+        workData.realSTime = realSTime
+        workData.realETime = realETime
 
         do {
             try viewContext.save()

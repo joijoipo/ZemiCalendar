@@ -44,6 +44,8 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="overTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="premiumWages" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="realETime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="realSTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="specialWages" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
