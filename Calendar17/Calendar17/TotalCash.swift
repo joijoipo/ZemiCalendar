@@ -52,6 +52,7 @@ struct TotalCash: View {
         let hourlyWage = workData.money
         let premiumWages = workData.premiumWages
         let specialWages = workData.specialWages
+        let transportationCost = workData.transportationCost
         let startTime = workData.startTime ?? Date()
         let endTime = workData.endTime ?? Date()
 
@@ -64,7 +65,7 @@ struct TotalCash: View {
         let regularWage = Double(regularMinutes) * (hourlyWage / 60.0)
         let nightWage = Double(nightShiftMinutes) * (premiumWages / 60.0)
 
-        return Int(regularWage + nightWage + specialWages)
+        return Int(regularWage + nightWage + specialWages + transportationCost)
     }
     
     // 勤務時間計算
