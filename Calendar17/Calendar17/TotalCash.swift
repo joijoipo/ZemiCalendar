@@ -24,6 +24,7 @@ struct TotalCash: View {
     
     @State private var targetWage: Double = 100000 // 目標給与の初期値
     @State private var innerTargetWage: Double = 50000 // 内側円グラフの目標給与
+    @State private var real: Double = 0
 
     // 合計給与
     private var totalWage: Int {
@@ -97,7 +98,7 @@ struct TotalCash: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 1) {
             // ヘッダー
             VStack {
                 Text("給与管理")
@@ -105,7 +106,7 @@ struct TotalCash: View {
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
             }
-            .padding(.top)
+            .padding(40)
             
             // カードビュー
             VStack(spacing: 15) {
@@ -139,7 +140,7 @@ struct TotalCash: View {
                             .padding(40)
 
                         Circle()
-                            .trim(from: 0.0, to: CGFloat(min(Double(totalWage) / targetWage, 1.0))) // 同じ進捗率
+                            .trim(from: 0.0, to: CGFloat(min(Double(real) / targetWage, 1.0))) // 同じ進捗率
                             .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
                             .foregroundColor(.green)
                             .rotationEffect(.degrees(-90))
@@ -169,9 +170,9 @@ struct TotalCash: View {
                                 .frame(width: 150)
                         }
                         HStack {
-                            Text("目標給与:")
+                            Text("実際給与:")
                                 .font(.headline)
-                            TextField("入力してください", value: $targetWage, format: .number)
+                            TextField("入力してください", value: $real, format: .number)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .keyboardType(.numberPad)
                                 .frame(width: 150)
