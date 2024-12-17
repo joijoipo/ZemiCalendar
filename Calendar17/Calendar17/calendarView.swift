@@ -18,17 +18,24 @@ struct calendarView: View {
         NavigationView{
         ZStack{
             VStack{
-                Text("\(String(self.year))年 \(self.month)月 \(self.day)日").font(.system(size: 20))
-                Button(action:{ //仮置き
-                    self.LastMonth()
-                },label: {
-                    Text("前")
-                })
-                Button(action:{
-                    self.NextMonth()
-                },label: {
-                    Text("次")
-                })
+                HStack{
+                    Button(action:{ //仮置き
+                        self.LastMonth()
+                    },label: {
+                        Text("前月")
+                    })
+                    Spacer().frame(width: 70)
+                    ZStack{
+                        Rectangle().frame(width:160, height:10).foregroundColor(.clear)
+                        Text("\(String(self.year))年 \(self.month)月 \(self.day)日").font(.system(size: 20))
+                    }
+                    Spacer().frame(width: 70)
+                    Button(action:{
+                        self.NextMonth()
+                    },label: {
+                        Text("次月")
+                    })
+                }
                 Spacer().frame(height:50)
                 
                 HStack { //曜日のとこの見た目

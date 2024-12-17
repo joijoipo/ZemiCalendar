@@ -40,6 +40,7 @@
 		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
 		C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668093C2CFECBF0004898A5 /* EditEventView.swift */; };
 		C66823052CF71161000ED318 /* AddNewWorkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66823042CF7115D000ED318 /* AddNewWorkData.swift */; };
+		C683CA692D115FA300E13BC8 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683CA682D115F9000E13BC8 /* Hexagon.swift */; };
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
 		C69732482CF59799001410CD /* EditPartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditPartListView.swift */; };
 		C6D752522CF82DCD00F5907C /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752512CF82DC100F5907C /* EventDetailView.swift */; };
@@ -84,6 +85,7 @@
 		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C668093C2CFECBF0004898A5 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		C66823042CF7115D000ED318 /* AddNewWorkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWorkData.swift; sourceTree = "<group>"; };
+		C683CA682D115F9000E13BC8 /* Hexagon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
 		C69732472CF5978D001410CD /* EditPartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPartListView.swift; sourceTree = "<group>"; };
 		C6D752512CF82DC100F5907C /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				93B398C52CA2765E0069D8B9 /* Assets.xcassets */,
 				93B398D12CA27D1C0069D8B9 /* AppDelegate.swift */,
 				93B398D52CA281E50069D8B9 /* leapYear.swift */,
+				C683CA682D115F9000E13BC8 /* Hexagon.swift */,
 				C69732452CF58D66001410CD /* Color16.swift */,
 				93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */,
 				9397EA592CEB21D600C7FCF2 /* AddEventView.swift */,
@@ -241,6 +244,7 @@
 			files = (
 				C66823052CF71161000ED318 /* AddNewWorkData.swift in Sources */,
 				93B398DE2CA28AA70069D8B9 /* calendarView.swift in Sources */,
+				C683CA692D115FA300E13BC8 /* Hexagon.swift in Sources */,
 				93B398D62CA281E50069D8B9 /* leapYear.swift in Sources */,
 				9368C9C72CD34B4E005BF9C0 /* okane.swift in Sources */,
 				9350C1A72CCA0194008A3BA3 /* api.swift in Sources */,

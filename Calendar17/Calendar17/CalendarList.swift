@@ -196,17 +196,26 @@ struct CalendarList: View {
     func renderScheduledEvents(for day: Int, scheduledEvents: [WorkData]) -> some View {
         VStack {
             // 最大3件の予定を表示
-            ForEach(0..<min(3, scheduledEvents.count), id: \.self) { eventIndex in
-                Text(scheduledEvents[eventIndex].name ?? "No Title") // 予定名を表示
-                    .font(.system(size: 12))
-                    .foregroundColor(.blue) // 予定は青色で表示
-                    .lineLimit(1) // テキストは1行に制限
-                    .frame(width: 55, alignment: .leading) // セル幅に合わせる
-                    .clipped() // セル外にはみ出た部分を隠す
+            ForEach(0..<min(4, scheduledEvents.count), id: \.self) { eventIndex in
+                ZStack {
+                    Text(scheduledEvents[eventIndex].name ?? "No Title") // 予定名を表示
+                        .font(.system(size: 10)) // 少し小さいフォントサイズに調整
+                        .foregroundColor(.blue)
+                        .lineLimit(1) // 1行に制限
+                        .frame(width: 55, alignment: .leading)
+                        .offset(x: 2)
+                    Rectangle()
+                        .fill(Color.blue.opacity(0.1)) // 内部を半透明の青色で塗りつぶす
+                            .overlay( // 枠線を追加
+                                Rectangle()
+                                    .stroke(Color.blue, lineWidth: 0.6) // 枠線の色と太さ
+                            )
+                        .frame(width: 53, height: 15)
+                }
             }
 
             // 予定が4件以上ある場合は「...」を表示
-            if scheduledEvents.count > 3 {
+            if scheduledEvents.count > 4 {
                 Text("...")
                     .font(.system(size: 12))
                     .foregroundColor(.blue)
@@ -229,14 +238,25 @@ struct CalendarList: View {
         let events = getEvents(for: day)
         
         return VStack {
-            ForEach(0..<min(3, events.count), id: \.self) { index in
-                Text(events[index].name ?? "No Title")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color(hex: events[index].color ?? "#00ff00")) // イベント名は緑色で表示
-                    .lineLimit(1)
-                    .frame(width: 55, alignment: .leading)
+            ForEach(0..<min(4, events.count), id: \.self) { index in
+                VStack{
+                    ZStack{
+                        Text(events[index].name ?? "No Title")
+                            .font(.system(size: 10)) // 少し小さいフォントサイズに調整
+                            .foregroundColor(.green) // 緑色で表示
+                            .lineLimit(1) // 1行に制限
+                            .frame(width: 55, alignment: .leading)
+                            .offset(x: 2)
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .stroke(.green, lineWidth: 0.6)
+                            .frame(width: 53, height: 15)
+                    }
+                    Spacer().frame(height: 5)
+                }
             }
-            if events.count > 3 {
+
+
+            if events.count > 4 {
                 Text("...")
                     .font(.system(size: 12))
                     .foregroundColor(.green)
@@ -253,18 +273,6 @@ struct CalendarList: View {
                 Calendar.current.isDate(workData.startTime!, inSameDayAs: currentDate)
             }
         }
-    
-    func colorToHex(_ color: Color) -> String? {
-        if let uiColor = UIColor(color).cgColor.components {
-            let red = Int(uiColor[0] * 255)
-            let green = Int(uiColor[1] * 255)
-            let blue = Int(uiColor[2] * 255)
-            return String(format: "#%02X%02X%02X", red, green, blue)
-        }
-        return nil
-    }
-
-
     
     var body: some View {
         VStack(spacing: 0){
