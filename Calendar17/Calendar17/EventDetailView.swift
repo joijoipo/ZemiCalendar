@@ -11,7 +11,7 @@ struct EventDetailView: View {
             NavigationView {
                 VStack {
                     HStack{
-                        Text("\(year)年 \(month)月 \(day) 日の予定")
+                        Text("\(String(year))年 \(month)月 \(day) 日の予定")
                             .font(.headline)
                             .padding()
                         VStack {

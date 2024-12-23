@@ -40,9 +40,11 @@
 		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
 		C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668093C2CFECBF0004898A5 /* EditEventView.swift */; };
 		C66823052CF71161000ED318 /* AddNewWorkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66823042CF7115D000ED318 /* AddNewWorkData.swift */; };
-		C683CA692D115FA300E13BC8 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683CA682D115F9000E13BC8 /* Hexagon.swift */; };
+		C683CA6B2D11826D00E13BC8 /* SalaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683CA6A2D11826400E13BC8 /* SalaryView.swift */; };
+		C683CA6D2D11828900E13BC8 /* NightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683CA6C2D11827300E13BC8 /* NightView.swift */; };
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
 		C69732482CF59799001410CD /* EditPartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditPartListView.swift */; };
+		C6C698F12D19431F00989B0E /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C698F02D19431500989B0E /* EventListView.swift */; };
 		C6D752522CF82DCD00F5907C /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752512CF82DC100F5907C /* EventDetailView.swift */; };
 		C6D752542CF841C500F5907C /* EditWorkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752532CF841BC00F5907C /* EditWorkDataView.swift */; };
 /* End PBXBuildFile section */
@@ -85,9 +87,11 @@
 		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C668093C2CFECBF0004898A5 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		C66823042CF7115D000ED318 /* AddNewWorkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWorkData.swift; sourceTree = "<group>"; };
-		C683CA682D115F9000E13BC8 /* Hexagon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hexagon.swift; sourceTree = "<group>"; };
+		C683CA6A2D11826400E13BC8 /* SalaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalaryView.swift; sourceTree = "<group>"; };
+		C683CA6C2D11827300E13BC8 /* NightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightView.swift; sourceTree = "<group>"; };
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
 		C69732472CF5978D001410CD /* EditPartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPartListView.swift; sourceTree = "<group>"; };
+		C6C698F02D19431500989B0E /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
 		C6D752512CF82DC100F5907C /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		C6D752532CF841BC00F5907C /* EditWorkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,8 +138,10 @@
 				93B398C52CA2765E0069D8B9 /* Assets.xcassets */,
 				93B398D12CA27D1C0069D8B9 /* AppDelegate.swift */,
 				93B398D52CA281E50069D8B9 /* leapYear.swift */,
-				C683CA682D115F9000E13BC8 /* Hexagon.swift */,
+				C6C698F02D19431500989B0E /* EventListView.swift */,
 				C69732452CF58D66001410CD /* Color16.swift */,
+				C683CA6A2D11826400E13BC8 /* SalaryView.swift */,
+				C683CA6C2D11827300E13BC8 /* NightView.swift */,
 				93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */,
 				9397EA592CEB21D600C7FCF2 /* AddEventView.swift */,
 				C69732472CF5978D001410CD /* EditPartListView.swift */,
@@ -244,7 +250,6 @@
 			files = (
 				C66823052CF71161000ED318 /* AddNewWorkData.swift in Sources */,
 				93B398DE2CA28AA70069D8B9 /* calendarView.swift in Sources */,
-				C683CA692D115FA300E13BC8 /* Hexagon.swift in Sources */,
 				93B398D62CA281E50069D8B9 /* leapYear.swift in Sources */,
 				9368C9C72CD34B4E005BF9C0 /* okane.swift in Sources */,
 				9350C1A72CCA0194008A3BA3 /* api.swift in Sources */,
@@ -257,10 +262,12 @@
 				C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */,
 				93B356B52CDB80C00019DF49 /* Persistence.swift in Sources */,
 				C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */,
+				C683CA6D2D11828900E13BC8 /* NightView.swift in Sources */,
 				C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */,
 				9350C1A52CC65A2F008A3BA3 /* Test.swift in Sources */,
 				93B398C42CA2765B0069D8B9 /* ContentView.swift in Sources */,
 				93C128E82CAE6AAF00C90369 /* cash.swift in Sources */,
+				C683CA6B2D11826D00E13BC8 /* SalaryView.swift in Sources */,
 				93318DCF2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift in Sources */,
 				93318DD02CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift in Sources */,
 				C6D752542CF841C500F5907C /* EditWorkDataView.swift in Sources */,
@@ -268,6 +275,7 @@
 				C6D752522CF82DCD00F5907C /* EventDetailView.swift in Sources */,
 				93B398C22CA2765B0069D8B9 /* Calendar17App.swift in Sources */,
 				93B398DA2CA286840069D8B9 /* week.swift in Sources */,
+				C6C698F12D19431F00989B0E /* EventListView.swift in Sources */,
 				93318DD62CE73408000A8AD9 /* AddPartView.swift in Sources */,
 				93D726BA2CB380FA00CCC15E /* AddWorkDataView.swift in Sources */,
 				93B398DC2CA289690069D8B9 /* currentMonth.swift in Sources */,

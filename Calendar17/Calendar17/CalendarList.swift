@@ -76,8 +76,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                            renderEventDetails(for: day)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -85,7 +85,7 @@ struct CalendarList: View {
                 ForEach(0..<(7-self.lastweeknumber),id:\.self){ index in
                     ZStack{
                         Rectangle().stroke(.gray, lineWidth: 0.2).frame(width:55,height:Hei())
-                        Text("おい")
+                        Text("")
                             .font(.system(size: 20))
                             .foregroundColor(.black)
                         
@@ -112,8 +112,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                            renderEventDetails(for: day)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -143,7 +143,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -174,7 +175,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -191,41 +193,46 @@ struct CalendarList: View {
             return CGFloat(120)
         }
      }
-    
     // 予定を表示するための共通関数
-    func renderScheduledEvents(for day: Int, scheduledEvents: [WorkData]) -> some View {
-        VStack {
-            // 最大3件の予定を表示
-            ForEach(0..<min(4, scheduledEvents.count), id: \.self) { eventIndex in
-                ZStack {
-                    Text(scheduledEvents[eventIndex].name ?? "No Title") // 予定名を表示
-                        .font(.system(size: 10)) // 少し小さいフォントサイズに調整
-                        .foregroundColor(.blue)
-                        .lineLimit(1) // 1行に制限
-                        .frame(width: 55, alignment: .leading)
-                        .offset(x: 2)
-                    Rectangle()
-                        .fill(Color.blue.opacity(0.1)) // 内部を半透明の青色で塗りつぶす
-                            .overlay( // 枠線を追加
-                                Rectangle()
-                                    .stroke(Color.blue, lineWidth: 0.6) // 枠線の色と太さ
-                            )
-                        .frame(width: 53, height: 15)
+    func renderScheduledEvents(for day: Int) -> some View {
+        let workDataList = getWorkData(for: day)
+        return VStack {
+            ForEach(0..<min(4, workDataList.count), id: \.self) { eventIndex in
+                VStack {
+                    ZStack {
+                        Text(workDataList[eventIndex].name ?? "No Title")
+                            .font(.system(size: 10))
+                            .foregroundColor(Color.from(description: workDataList[eventIndex].color ?? "green")) // イベント色を適用
+                            .lineLimit(1)
+                            .frame(width: 55, alignment: .leading)
+                            .offset(x: 2)
+                            .clipped()
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .stroke(Color.from(description: workDataList[eventIndex].color ?? "green"), lineWidth: 0.6)
+                            .frame(width: 53, height: 15)
+                    }
+                    Spacer().frame(height: 5)
                 }
             }
 
-            // 予定が4件以上ある場合は「...」を表示
-            if scheduledEvents.count > 4 {
+
+            if workDataList.count > 3 && weeknumber == 6 {
                 Text("...")
                     .font(.system(size: 12))
-                    .foregroundColor(.blue)
-                    .lineLimit(1) // 1行に制限
-                    .frame(width: 55, alignment: .leading) // セル幅に合わせる
-                    .clipped() // 「...」が枠を超えないように
+                    .foregroundColor(.green)
+                    .lineLimit(1)
+                    .frame(width: 55, alignment: .leading)
+            } else if workDataList.count > 4 {
+                Text("...")
+                    .font(.system(size: 12))
+                    .foregroundColor(.green)
+                    .lineLimit(1)
+                    .frame(width: 55, alignment: .leading)
             }
         }
-        .frame(maxWidth: 55, alignment: .leading) // セル幅を制限して、親ビューの範囲も固定
+        .frame(maxWidth: 55, alignment: .leading)
     }
+
     
     func getEvents(for day: Int) -> [Event] {
         let currentDate = Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!
@@ -234,29 +241,37 @@ struct CalendarList: View {
         }
     }
     
-    func renderEventDetails(for day: Int) -> some View {
+    func renderEventDetails(for day: Int, weeknumber: Int) -> some View {
         let events = getEvents(for: day)
         
         return VStack {
             ForEach(0..<min(4, events.count), id: \.self) { index in
-                VStack{
-                    ZStack{
+                VStack {
+                    ZStack {
+                        // イベント名を表示
                         Text(events[index].name ?? "No Title")
                             .font(.system(size: 10)) // 少し小さいフォントサイズに調整
-                            .foregroundColor(.green) // 緑色で表示
+                            .foregroundColor(Color.from(description: events[index].color ?? "green")) // イベント色を適用
                             .lineLimit(1) // 1行に制限
                             .frame(width: 55, alignment: .leading)
                             .offset(x: 2)
+                        
+                        // 枠線の色をイベントの色に設定
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
-                            .stroke(.green, lineWidth: 0.6)
+                            .stroke(Color.from(description: events[index].color ?? "green"), lineWidth: 0.6)
                             .frame(width: 53, height: 15)
                     }
                     Spacer().frame(height: 5)
                 }
             }
 
-
-            if events.count > 4 {
+            if events.count > 3 && weeknumber == 6 {
+                Text("...")
+                    .font(.system(size: 12))
+                    .foregroundColor(.green)
+                    .lineLimit(1)
+                    .frame(width: 55, alignment: .leading)
+            } else if events.count > 4 {
                 Text("...")
                     .font(.system(size: 12))
                     .foregroundColor(.green)
@@ -303,8 +318,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                            renderEventDetails(for: day)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -331,8 +346,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                            renderEventDetails(for: day)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -359,8 +374,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                            renderEventDetails(for: day)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -387,8 +402,8 @@ struct CalendarList: View {
                                 .foregroundColor(getTextColor(for: day))
                             
                             // 予定の表示を共通関数で呼び出す
-                            renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                            renderEventDetails(for: day)
+                            renderScheduledEvents(for: day)
+                            renderEventDetails(for: day, weeknumber: weeknumber)
                         }
                     }
                 }
@@ -420,8 +435,8 @@ struct CalendarList: View {
                                     .foregroundColor(getTextColor(for: day))
                                 
                                 // 予定の表示を共通関数で呼び出す
-                                renderScheduledEvents(for: day, scheduledEvents: scheduledEvents)
-                                renderEventDetails(for: day)
+                                renderScheduledEvents(for: day)
+                                renderEventDetails(for: day, weeknumber: weeknumber)
                             }
                         }
                     }

@@ -1,17 +1,3 @@
-//
-//  EditEventView.swift
-//  Calendar17
-//
-//  Created by 冨成 祐羽 on 2024/12/03.
-//
-
-//
-//  EditEventView.swift
-//  Calendar17
-//
-//  Created by 冨成 祐羽 on 2024/12/03.
-//
-
 import SwiftUI
 
 struct EditEventView: View {
@@ -22,12 +8,16 @@ struct EditEventView: View {
     @State private var name: String
     @State private var startDate: Date
     @State private var endDate: Date
+    @State private var selectedColor: String // 現在の選択色
+
+    let colorOptions = ["blue", "red", "green", "orange", "purple", "yellow"] // 色の選択肢
 
     init(event: Event) {
         self.event = event
         _name = State(initialValue: event.name ?? "")
         _startDate = State(initialValue: event.startDate ?? Date())
         _endDate = State(initialValue: event.endDate ?? Date())
+        _selectedColor = State(initialValue: event.color ?? "blue") // 初期値を設定
     }
 
     var body: some View {
@@ -37,8 +27,31 @@ struct EditEventView: View {
             DatePicker("開始日時", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
 
             DatePicker("終了日時", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
-            
-            Text("名前: \(event.color ?? "")").font(.headline)
+
+            // 色選択セクション
+            Section(header: Text("色を選択").font(.headline)) {
+                HStack(spacing: 15) {
+                    ForEach(colorOptions, id: \.self) { colorName in
+                        ZStack {
+                            // 色の表示
+                            Circle()
+                                .fill(Color.from(description: colorName))
+                                .frame(width: 40, height: 40)
+
+                            // 選択中の色をハイライト
+                            if colorName == selectedColor {
+                                Circle()
+                                    .stroke(Color.black, lineWidth: 3)
+                                    .frame(width: 45, height: 45)
+                            }
+                        }
+                        .onTapGesture {
+                            selectedColor = colorName // 色を選択
+                        }
+                    }
+                }
+                .padding(.vertical)
+            }
 
             HStack {
                 Button("保存") {
@@ -54,12 +67,18 @@ struct EditEventView: View {
             }
         }
         .padding()
+        .onAppear {
+            // 必ず`event.color`を現在の選択に反映
+            selectedColor = event.color ?? "blue"
+        }
     }
+
 
     private func saveEvent() {
         event.name = name
         event.startDate = startDate
         event.endDate = endDate
+        event.color = selectedColor // 選択された色を保存
 
         do {
             try viewContext.save()

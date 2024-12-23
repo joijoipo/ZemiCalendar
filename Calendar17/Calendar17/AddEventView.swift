@@ -15,6 +15,14 @@ struct AddEventView: View {
     
     @Environment(\.presentationMode) var presentationMode // モーダルを閉じるために使用
     
+    // プリセットカラーの配列と色名
+    private let presetColors: [(color: Color, name: String)] = [
+        (.blue, "青"), (.red, "赤"), (.green, "緑"),
+        (.orange, "オレンジ"), (.purple, "紫"), (.yellow, "黄色")
+    ]
+    
+    private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
+    
     var body: some View {
         NavigationView {
             Form {
@@ -22,13 +30,12 @@ struct AddEventView: View {
                     TextField("イベント名", text: $name)
                         .textInputAutocapitalization(.words)
                     
-                    TextField("説明 (オプション)", text: $memo)
+                    TextField("メモ", text: $memo)
                         .textInputAutocapitalization(.sentences)
                     
                     DatePicker("開始日時", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
                     
                     DatePicker("終了日時", selection: $endDate, displayedComponents: [.date, .hourAndMinute])
-                    
                 }
                 
                 Section(header: Text("通知設定")) {
@@ -48,13 +55,28 @@ struct AddEventView: View {
                     }
                 }
                 
-                Section(header: Text("その他の設定")) {
-                    
-                    ColorPicker("イベントカラー", selection: $color)
-                    
+                Section(header: Text("イベントカラー")) {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(presetColors, id: \.name) { preset in
+                            VStack {
+                                Circle()
+                                    .fill(preset.color)
+                                    .frame(width: 40, height: 40)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(preset.color == color ? Color.black : Color.clear, lineWidth: 2)
+                                    )
+                                    .onTapGesture {
+                                        color = preset.color
+                                    }
+                                Text(preset.name)
+                                    .font(.caption)
+                            }
+                        }
+                    }
+                    .padding(.vertical)
                 }
             }
-            .navigationBarTitle("イベントを追加")
             .navigationBarItems(
                 leading: Button("キャンセル") {
                     presentationMode.wrappedValue.dismiss()
@@ -120,5 +142,4 @@ struct AddEventView: View {
             }
         }
     }
-
 }

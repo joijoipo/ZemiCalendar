@@ -23,6 +23,13 @@ struct AddWorkDataView: View {
     @State private var premiumWages: Double = 0
     @State private var specialWages: Double? = nil
     @State private var showingAddWorkDataView = false
+    @State private var color: Color = .blue
+    
+    private let presetColors: [(color: Color, name: String)] = [
+        (.blue, "青"), (.red, "赤"), (.green, "緑"),
+        (.orange, "オレンジ"), (.purple, "紫"), (.yellow, "黄色")
+    ]
+    private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
     init(startTime: Date = Date(), endTime: Date = Date()) {
         _startTime = State(initialValue: startTime)
@@ -61,7 +68,29 @@ struct AddWorkDataView: View {
                                     TextField("", value: $transportationCost, formatter: currencyFormatter)
                                 }
 
-                                TextField("備考", text: $notes)
+                                TextField("メモ", text: $notes)
+                                
+                                Section(header: Text("イベントカラー")) {
+                                    LazyVGrid(columns: columns, spacing: 20) {
+                                        ForEach(presetColors, id: \.name) { preset in
+                                            VStack {
+                                                Circle()
+                                                    .fill(preset.color)
+                                                    .frame(width: 40, height: 40)
+                                                    .overlay(
+                                                        Circle()
+                                                            .stroke(preset.color == color ? Color.black : Color.clear, lineWidth: 2)
+                                                    )
+                                                    .onTapGesture {
+                                                        color = preset.color
+                                                    }
+                                                Text(preset.name)
+                                                    .font(.caption)
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical)
+                                }
                             }
                         }
                         .padding(.horizontal)
@@ -73,8 +102,8 @@ struct AddWorkDataView: View {
 
                     // リスト部分
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("過去の勤務履歴から追加")
-                            .font(.headline)
+                        Text("過去の勤務履歴から追加↓")
+                            .font(.system(size: 30))
                             .padding([.top, .horizontal])
 
                         List {
@@ -98,6 +127,8 @@ struct AddWorkDataView: View {
                                 }
                             }
                         }
+                        .scrollContentBackground(.hidden) // デフォルトの背景を隠す
+                        .background(Color.gray) // 新しい背景色を指定
                     }
                     .frame(maxHeight: geometry.size.height * 0.4) // リストの高さを調整
                 }
@@ -193,6 +224,7 @@ struct AddWorkDataView: View {
         newWorkData.money = money ?? 0
         newWorkData.premiumWages = premiumWages
         newWorkData.specialWages = specialWages ?? 0
+        newWorkData.color = color.description
 
         do {
             try viewContext.save()

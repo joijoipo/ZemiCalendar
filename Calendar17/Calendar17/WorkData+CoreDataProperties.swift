@@ -18,7 +18,7 @@ extension WorkData {
 
     @NSManaged public var breakTime: Double
     @NSManaged public var endTime: Date?
-    @NSManaged public var colorSelect: Data?
+    @NSManaged public var color: String?
     @NSManaged public var money: Double
     @NSManaged public var name: String?
     @NSManaged public var notes: String?
