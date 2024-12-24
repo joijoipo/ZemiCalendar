@@ -9,7 +9,7 @@ import SwiftUI
 
 struct other: View {
     var body: some View {
-        Text("その他")
+        Text("カレンダーを共有")
     }
 }
 
