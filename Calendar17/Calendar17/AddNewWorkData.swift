@@ -98,6 +98,7 @@ struct AddNewWorkDataView: View {
         newWorkData.name = name
         newWorkData.money = money
         newWorkData.move = move
+        newWorkData.premiumWages = premiumWages
 
         do {
             try viewContext.save()
