@@ -221,8 +221,8 @@ struct AddWorkDataView: View {
         newWorkData.transportationCost = transportationCost ?? 0
         newWorkData.name = worker.name
         newWorkData.notes = notes
-        newWorkData.money = money ?? 0
-        newWorkData.premiumWages = premiumWages
+        newWorkData.money = worker.money
+        newWorkData.premiumWages = worker.premiumWages
         newWorkData.specialWages = specialWages ?? 0
         newWorkData.color = color.description
 
