@@ -16,21 +16,20 @@ struct TotalCash: View {
     )
     var workDataList: FetchedResults<WorkData>
     
-    @FetchRequest(
-        entity: PartTimeList.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.money, ascending: true)]
-    )
-    var partTimeList: FetchedResults<PartTimeList>
-    
     @State private var targetWage: Double = 100000 // 目標給与の初期値
-    @State private var innerTargetWage: Double = 50000 // 内側円グラフの目標給与
-    @State private var real: Double = 0
 
     // 合計給与
     private var totalWage: Int {
         workDataList
             .filter { $0.isPastWork() }
             .reduce(0) { $0 + calculateWage(for: $1) }
+    }
+    
+    // 実際の合計給与
+    private var totalRealWage: Int {
+        workDataList
+            .filter { $0.isPastWork() }
+            .reduce(0) { $0 + calculateRealWage(for: $1) }
     }
     
     // 合計勤務時間（分単位）
@@ -56,33 +55,50 @@ struct TotalCash: View {
         let startTime = workData.startTime ?? Date()
         let endTime = workData.endTime ?? Date()
 
-        // 労働時間を計算（分単位）
         let totalMinutes = calculateMinutes(from: startTime, to: endTime)
         let nightShiftMinutes = calculateNightShiftMinutes(start: startTime, end: endTime)
         let regularMinutes = totalMinutes - nightShiftMinutes
 
-        // 給与計算
         let regularWage = Double(regularMinutes) * (hourlyWage / 60.0)
         let nightWage = Double(nightShiftMinutes) * (premiumWages / 60.0)
 
         return Int(regularWage + nightWage + specialWages + transportationCost)
     }
     
-    // 勤務時間計算
+    private func calculateRealWage(for workData: WorkData) -> Int {
+        let hourlyWage = workData.money
+        let premiumWages = workData.premiumWages
+        let specialWages = workData.specialWages
+        let transportationCost = workData.transportationCost
+
+        // 実際の勤務時間がnilの場合、通常の勤務時間を使用
+        let realSTime = workData.realSTime ?? workData.startTime ?? Date()
+        let realETime = workData.realETime ?? workData.endTime ?? Date()
+
+        // 勤務時間の計算
+        let totalMinutes = calculateMinutes(from: realSTime, to: realETime)
+        let nightShiftMinutes = calculateNightShiftMinutes(start: realSTime, end: realETime)
+        let regularMinutes = totalMinutes - nightShiftMinutes
+
+        // 給料の計算
+        let regularWage = Double(regularMinutes) * (hourlyWage / 60.0)
+        let nightWage = Double(nightShiftMinutes) * (premiumWages / 60.0)
+
+        return Int(regularWage + nightWage + specialWages + transportationCost)
+    }
+    
     private func calculateWorkingMinutes(for workData: WorkData) -> Int {
         let startTime = workData.startTime ?? Date()
         let endTime = workData.endTime ?? Date()
         return calculateMinutes(from: startTime, to: endTime)
     }
 
-    // 2つの日付間の深夜勤務時間を計算
     private func calculateNightShiftMinutes(start: Date, end: Date) -> Int {
         let nightStart = Calendar.current.date(bySettingHour: 22, minute: 0, second: 0, of: start) ?? start
         let nightEnd = Calendar.current.date(bySettingHour: 5, minute: 0, second: 0, of: start.addingTimeInterval(24 * 60 * 60)) ?? start
         return calculateOverlapMinutes(start: start, end: end, rangeStart: nightStart, rangeEnd: nightEnd)
     }
 
-    // 重複時間を計算
     private func calculateOverlapMinutes(start: Date, end: Date, rangeStart: Date, rangeEnd: Date) -> Int {
         guard start < rangeEnd && end > rangeStart else { return 0 }
         let overlapStart = max(start, rangeStart)
@@ -90,7 +106,6 @@ struct TotalCash: View {
         return calculateMinutes(from: overlapStart, to: overlapEnd)
     }
 
-    // 分数を計算
     private func calculateMinutes(from start: Date, to end: Date) -> Int {
         let components = Calendar.current.dateComponents([.minute, .second], from: start, to: end)
         let minutes = components.minute ?? 0
@@ -100,7 +115,6 @@ struct TotalCash: View {
     
     var body: some View {
         VStack(spacing: 1) {
-            // ヘッダー
             VStack {
                 Text("給与管理")
                     .font(.largeTitle)
@@ -109,20 +123,16 @@ struct TotalCash: View {
             }
             .padding(40)
             
-            // カードビュー
             VStack(spacing: 15) {
-                // 合計給与カード
                 CardView(title: "合計給与", value: "¥\(totalWage)", icon: "yen")
-                // 合計勤務時間カード
+                CardView(title: "実際の合計給与", value: "¥\(totalRealWage)", icon: "yen")
                 CardView(title: "合計勤務時間", value: formattedWorkingHours, icon: "clock")
             }
             .padding()
             
-            // 円グラフ
             GeometryReader { geometry in
                 VStack {
                     ZStack {
-                        // 外側の円グラフ
                         Circle()
                             .stroke(lineWidth: 15)
                             .opacity(0.3)
@@ -133,15 +143,13 @@ struct TotalCash: View {
                             .foregroundColor(.blue)
                             .rotationEffect(.degrees(-90))
                         
-                        // 内側の円グラフ
                         Circle()
                             .stroke(lineWidth: 10)
                             .opacity(0.3)
                             .foregroundColor(.gray)
                             .padding(40)
-
                         Circle()
-                            .trim(from: 0.0, to: CGFloat(min(Double(real) / targetWage, 1.0))) // 同じ進捗率
+                            .trim(from: 0.0, to: CGFloat(min(Double(totalRealWage) / targetWage, 1.0)))
                             .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
                             .foregroundColor(.green)
                             .rotationEffect(.degrees(-90))
@@ -160,31 +168,19 @@ struct TotalCash: View {
                     .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7)
                     .padding()
                     
-                    // 目標給与入力
-                    VStack {
-                        HStack {
-                            Text("目標給与:")
-                                .font(.headline)
-                            TextField("入力してください", value: $targetWage, format: .number)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .keyboardType(.numberPad)
-                                .frame(width: 150)
-                        }
-                        HStack {
-                            Text("実際給与:")
-                                .font(.headline)
-                            TextField("入力してください", value: $real, format: .number)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .keyboardType(.numberPad)
-                                .frame(width: 150)
-                        }
-
+                    HStack {
+                        Text("目標給与:")
+                            .font(.headline)
+                        TextField("入力してください", value: $targetWage, format: .number)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .keyboardType(.numberPad)
+                            .frame(width: 150)
                     }
-                    .padding(.horizontal)
+                    .padding(.top, 20)
                 }
-                .frame(maxWidth: .infinity, alignment: .center) // 円グラフと目標給与入力を中央配置
+                .frame(maxWidth: .infinity, alignment: .center)
             }
-            .frame(height: 300) // 十分な高さを確保
+            .frame(height: 300)
             
             Spacer()
         }
