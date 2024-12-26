@@ -11,12 +11,13 @@ struct EditWorkDataView: View {
     @ObservedObject var workData: WorkData  // CoreDataのWorkDataを使用するため、ObservedObjectで監視
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) private var presentationMode // 画面を閉じるため
-    @FetchRequest(
-        entity: PartTimeList.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.name, ascending: true)]
-    ) var workers: FetchedResults<PartTimeList>
+    
+    @FetchRequest(entity: PartTimeList.entity(),sortDescriptors: [NSSortDescriptor(keyPath: \PartTimeList.name, ascending: true)])
+    var workers: FetchedResults<PartTimeList>
+    
+    @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
+    var workDataList: FetchedResults<WorkData>
 
-    @State private var selectedWorker: PartTimeList?
     @State private var workName: String
     @State private var startTime: Date
     @State private var endTime: Date
@@ -34,12 +35,7 @@ struct EditWorkDataView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("アルバイト情報の編集")) {
-                Picker("アルバイトを選択", selection: $selectedWorker) {
-                    ForEach(workers, id: \.self) { worker in
-                        Text(worker.name ?? "Unknown").tag(worker as PartTimeList?)
-                    }
-                }
+            Section(header: Text("{\(workName)}の編集")) {
 
                 DatePicker("開始時間", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
 
@@ -67,9 +63,7 @@ struct EditWorkDataView: View {
     }
 
     private func saveWorkData() {
-        guard let worker = selectedWorker else { return }
         
-        workData.name = worker.name
         workData.startTime = startTime
         workData.endTime = endTime
         workData.realSTime = realSTime
@@ -77,6 +71,7 @@ struct EditWorkDataView: View {
 
         do {
             try viewContext.save()
+            viewContext.refresh(workData, mergeChanges: true)
             presentationMode.wrappedValue.dismiss() // 保存後に画面を閉じる
         } catch {
             print("保存エラー: \(error)")

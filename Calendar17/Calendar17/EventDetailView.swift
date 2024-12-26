@@ -1,11 +1,14 @@
 import SwiftUI
 
 struct EventDetailView: View {
+    @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
+    var workDataList: FetchedResults<WorkData>
+    
     var year: Int
     var month: Int
     var day: Int
     var events: [Event]
-    var workData: [WorkData]
+    @State var workData: [WorkData]
 
     var body: some View {
             NavigationView {
