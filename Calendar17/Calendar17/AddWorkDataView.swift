@@ -9,7 +9,7 @@ struct AddWorkDataView: View {
     var workers: FetchedResults<PartTimeList>
 
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) private var presentationMode // 画面を閉じるため
     
     @State var startTime: Date
     @State var endTime: Date
@@ -27,7 +27,7 @@ struct AddWorkDataView: View {
     
     private let presetColors: [(color: Color, name: String)] = [
         (.blue, "青"), (.red, "赤"), (.green, "緑"),
-        (.orange, "オレンジ"), (.purple, "紫"), (.yellow, "黄色")
+        (.orange, "オレンジ"), (.purple, "紫"), (.black, "黒")
     ]
     private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
@@ -102,7 +102,7 @@ struct AddWorkDataView: View {
 
                     // リスト部分
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("過去の勤務履歴から追加↓")
+                        Text("過去の勤務履歴から追加(過去10件)↓")
                             .font(.system(size: 30))
                             .padding([.top, .horizontal])
 
@@ -111,18 +111,15 @@ struct AddWorkDataView: View {
                                 Button(action: {
                                     print("選択された勤務データ: \(workData.name ?? "未設定")")
                                     saveWorkData(from: workData)
-                                    dismiss()
                                 }) {
                                     HStack {
                                         let startTime = workData.startTime.flatMap { timeFormatter.string(from: $0) } ?? "未設定"
                                         let endTime = workData.endTime.flatMap { timeFormatter.string(from: $0) } ?? "未設定"
-                                        VStack(alignment: .leading) {
                                             Text(workData.name ?? "未設定")
                                                 .font(.headline)
                                             Text("\(startTime) ~ \(endTime)")
                                                 .font(.subheadline)
                                                 .foregroundColor(.gray)
-                                        }
                                     }
                                 }
                             }
@@ -135,7 +132,6 @@ struct AddWorkDataView: View {
             }
             .navigationBarItems(trailing: Button(action: {
                 addWorkData()
-                dismiss()
             }) {
                 Text("保存")
                     .foregroundColor(.blue)
@@ -201,6 +197,7 @@ struct AddWorkDataView: View {
         do {
             try viewContext.save()
             print("勤務データが保存されました: \(newWorkData)")
+            presentationMode.wrappedValue.dismiss() // 保存後に画面を閉じる
         } catch {
             print("エラー: 勤務データの保存に失敗しました - \(error)")
         }
@@ -228,6 +225,7 @@ struct AddWorkDataView: View {
 
         do {
             try viewContext.save()
+            presentationMode.wrappedValue.dismiss() // 保存後に画面を閉じる
         } catch {
             print("Error saving data: \(error)")
         }

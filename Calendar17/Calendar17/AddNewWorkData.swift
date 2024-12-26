@@ -10,6 +10,7 @@ import CoreData
 
 struct AddNewWorkDataView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) private var presentationMode // 画面を閉じるため
     @State private var workDate = Date()
     @State private var name = ""
     @State private var notes = ""
@@ -102,6 +103,7 @@ struct AddNewWorkDataView: View {
 
         do {
             try viewContext.save()
+            presentationMode.wrappedValue.dismiss() // 保存後に画面を閉じる
         } catch {
             print("Error saving data: \(error)")
         }
