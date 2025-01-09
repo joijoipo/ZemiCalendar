@@ -354,9 +354,6 @@ struct CalendarList: View {
                 ForEach(0..<(self.column-self.startdaynumber), id:\.self) { index in
                     let day = index + 1
                     // 予定があるかをフィルタリング
-                    let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
-                    }
                     
                     ZStack(alignment: .top) {
                         Button(action: {selectedDay = day
@@ -408,9 +405,6 @@ struct CalendarList: View {
             HStack(spacing: 0) {
                 ForEach(0..<self.column, id: \.self) { index in
                     let day = ((7 - self.startdaynumber) + 1 + index) + 7
-                    let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
-                    }
                     
                     ZStack(alignment: .top) {
                         Button(action: {selectedDay = day
@@ -435,9 +429,6 @@ struct CalendarList: View {
             HStack(spacing: 0) {
                 ForEach(0..<self.column, id: \.self) { index in
                     let day = (((7-self.startdaynumber)+1+index)+14)
-                    let scheduledEvents = workDataList.filter {
-                        Calendar.current.isDate($0.startTime!, inSameDayAs: Calendar.current.date(from: DateComponents(year: self.year, month: self.month, day: day))!)
-                    }
                     
                     ZStack(alignment: .top) {
                         Button(action: {selectedDay = day
