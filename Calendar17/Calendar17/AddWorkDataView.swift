@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreData
+import FirebaseFirestore
 
 struct AddWorkDataView: View {
     @FetchRequest(entity: WorkData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \WorkData.workDate, ascending: true)])
@@ -193,6 +194,29 @@ struct AddWorkDataView: View {
         newWorkData.money = money ?? 0
         newWorkData.premiumWages = premiumWages
         newWorkData.specialWages = specialWages ?? 0
+        
+        let db = Firestore.firestore()
+            let workDataDict: [String: Any] = [
+                "workDate": newWorkData.workDate ?? Date(),
+                "startTime": newWorkData.startTime ?? Date(),
+                "endTime": newWorkData.endTime ?? Date(),
+                "breakTime": newWorkData.breakTime,
+                "transportationCost": newWorkData.transportationCost,
+                "name": newWorkData.name ?? "",
+                "notes": newWorkData.notes ?? "",
+                "money": newWorkData.money,
+                "premiumWages": newWorkData.premiumWages,
+                "specialWages": newWorkData.specialWages
+            ]
+
+            db.collection("workData").addDocument(data: workDataDict) { error in
+                if let error = error {
+                    print("Firestoreへの勤務データ保存に失敗しました: \(error.localizedDescription)")
+                } else {
+                    print("勤務データがFirestoreに保存されました")
+                }
+            }
+
 
         do {
             try viewContext.save()
@@ -222,6 +246,28 @@ struct AddWorkDataView: View {
         newWorkData.premiumWages = worker.premiumWages
         newWorkData.specialWages = specialWages ?? 0
         newWorkData.color = color.description
+        
+        let db = Firestore.firestore()
+            let workDataDict: [String: Any] = [
+                "workDate": newWorkData.workDate ?? Date(),
+                "startTime": newWorkData.startTime ?? Date(),
+                "endTime": newWorkData.endTime ?? Date(),
+                "breakTime": newWorkData.breakTime,
+                "transportationCost": newWorkData.transportationCost,
+                "name": newWorkData.name ?? "",
+                "notes": newWorkData.notes ?? "",
+                "money": newWorkData.money,
+                "premiumWages": newWorkData.premiumWages,
+                "specialWages": newWorkData.specialWages
+            ]
+
+            db.collection("workData").addDocument(data: workDataDict) { error in
+                if let error = error {
+                    print("Firestoreへの勤務データ保存に失敗しました: \(error.localizedDescription)")
+                } else {
+                    print("勤務データがFirestoreに保存されました")
+                }
+            }
 
         do {
             try viewContext.save()

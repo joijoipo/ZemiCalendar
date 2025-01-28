@@ -7,9 +7,14 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseAuth
+import FirebaseFirestore
 
 @main
 struct Calendar17App: App {
+    init() {
+            FirebaseApp.configure()
+        }
     
     let persistenceController = PersistenceController.shared
     var body: some Scene {

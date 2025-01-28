@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct EditWorkDataView: View {
     @ObservedObject var workData: WorkData  // CoreDataのWorkDataを使用するため、ObservedObjectで監視
@@ -68,6 +69,22 @@ struct EditWorkDataView: View {
         workData.endTime = endTime
         workData.realSTime = realSTime
         workData.realETime = realETime
+        
+        let db = Firestore.firestore()
+            let workDataDict: [String: Any] = [
+                "startTime": workData.startTime ?? Date(),
+                "endTime": workData.endTime ?? Date(),
+                "realSTime": workData.realSTime ?? Date(),
+                "realETime": workData.realETime ?? Date()
+            ]
+
+            db.collection("workData").addDocument(data: workDataDict) { error in
+                if let error = error {
+                    print("Firestoreへの作業データ保存に失敗しました: \(error.localizedDescription)")
+                } else {
+                    print("作業データがFirestoreに保存されました")
+                }
+            }
 
         do {
             try viewContext.save()
