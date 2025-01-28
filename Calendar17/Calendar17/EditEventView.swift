@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseFirestore
 
 struct EditEventView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -79,6 +80,22 @@ struct EditEventView: View {
         event.startDate = startDate
         event.endDate = endDate
         event.color = selectedColor // 選択された色を保存
+        
+        let db = Firestore.firestore()
+            let eventData: [String: Any] = [
+                "name": event.name ?? "",
+                "startDate": event.startDate,
+                "endDate": event.endDate,
+                "color": event.color ?? ""
+            ]
+            
+            db.collection("events").addDocument(data: eventData) { error in
+                if let error = error {
+                    print("Firestoreへのイベント保存に失敗しました: \(error.localizedDescription)")
+                } else {
+                    print("イベントがFirestoreに保存されました")
+                }
+            }
 
         do {
             try viewContext.save()

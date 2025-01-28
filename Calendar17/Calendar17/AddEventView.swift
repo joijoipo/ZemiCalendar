@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreData
+import FirebaseFirestore
 
 struct AddEventView: View {
     @State var startDate: Date
@@ -108,10 +109,35 @@ struct AddEventView: View {
             if isNotificationEnabled {
                 scheduleNotification(for: newEvent)
             }
+            
+            // Firestoreにデータを保存
+                    let db = Firestore.firestore()
+                    let eventData: [String: Any] = [
+                        "name": name,
+                        "memo": memo,
+                        "startDate": startDate,
+                        "endDate": endDate,
+                        "isNotificationEnabled": isNotificationEnabled,
+                        "notificationTime": isNotificationEnabled ? notificationTime : nil,
+                        "isRecurring": isRecurring,
+                        "recurrenceRule": recurrenceRule,
+                        "color": color.description
+                    ]
+                    
+                    db.collection("events").addDocument(data: eventData) { error in
+                        if let error = error {
+                            print("Firestore保存中にエラーが発生しました: \(error.localizedDescription)")
+                        } else {
+                            print("イベントがFirestoreに保存されました")
+                        }
+                    }
+            
             presentationMode.wrappedValue.dismiss() // モーダルを閉じる
         } catch {
             print("保存中にエラーが発生しました: \(error.localizedDescription)")
         }
+        
+        
     }
 
     private func scheduleNotification(for event: Event) {
