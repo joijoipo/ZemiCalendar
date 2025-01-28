@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A92F0CCED49B3B537613873 /* Pods_Calendar17.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D1CA8982F85F9534834A29 /* Pods_Calendar17.framework */; };
 		931DF5C02CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 931DF5BE2CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld */; };
 		93318DCF2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93318DCD2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift */; };
 		93318DD02CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93318DCE2CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift */; };
@@ -40,6 +41,7 @@
 		C66787582CEC1C620003572C /* Event+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66787572CEC1C500003572C /* Event+CoreDataClass.swift */; };
 		C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668093C2CFECBF0004898A5 /* EditEventView.swift */; };
 		C66823052CF71161000ED318 /* AddNewWorkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66823042CF7115D000ED318 /* AddNewWorkData.swift */; };
+		C68203BC2D2B840C0097E616 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C68203BB2D2B840C0097E616 /* GoogleService-Info.plist */; };
 		C683CA6B2D11826D00E13BC8 /* SalaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683CA6A2D11826400E13BC8 /* SalaryView.swift */; };
 		C683CA6D2D11828900E13BC8 /* NightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683CA6C2D11827300E13BC8 /* NightView.swift */; };
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
@@ -50,6 +52,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B7EBEF91CC6867D8F3DB504 /* Pods-Calendar17.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar17.release.xcconfig"; path = "Target Support Files/Pods-Calendar17/Pods-Calendar17.release.xcconfig"; sourceTree = "<group>"; };
+		1F8A9CBEA59C6F43E15A46E6 /* Pods-Calendar17.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar17.debug.xcconfig"; path = "Target Support Files/Pods-Calendar17/Pods-Calendar17.debug.xcconfig"; sourceTree = "<group>"; };
+		57D1CA8982F85F9534834A29 /* Pods_Calendar17.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendar17.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		931DF5BF2CCF2B6B0014B1F9 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		93318DCD2CE72F43000A8AD9 /* WorkData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		93318DCE2CE72F43000A8AD9 /* WorkData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkData+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -87,6 +92,7 @@
 		C66787572CEC1C500003572C /* Event+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C668093C2CFECBF0004898A5 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		C66823042CF7115D000ED318 /* AddNewWorkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWorkData.swift; sourceTree = "<group>"; };
+		C68203BB2D2B840C0097E616 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C683CA6A2D11826400E13BC8 /* SalaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalaryView.swift; sourceTree = "<group>"; };
 		C683CA6C2D11827300E13BC8 /* NightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightView.swift; sourceTree = "<group>"; };
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A92F0CCED49B3B537613873 /* Pods_Calendar17.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 			children = (
 				93B398C02CA2765B0069D8B9 /* Calendar17 */,
 				93B398BF2CA2765B0069D8B9 /* Products */,
+				CB45244224D84CAE9C0C8E4D /* Pods */,
+				FC256121EC77C6D024A3B065 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +135,7 @@
 		93B398C02CA2765B0069D8B9 /* Calendar17 */ = {
 			isa = PBXGroup;
 			children = (
+				C68203BB2D2B840C0097E616 /* GoogleService-Info.plist */,
 				C6246F362CE300DE00981B23 /* Untitled.swift */,
 				C66787572CEC1C500003572C /* Event+CoreDataClass.swift */,
 				C66787532CEC1B150003572C /* Event+CoreDataProperties.swift */,
@@ -178,6 +188,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		CB45244224D84CAE9C0C8E4D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1F8A9CBEA59C6F43E15A46E6 /* Pods-Calendar17.debug.xcconfig */,
+				0B7EBEF91CC6867D8F3DB504 /* Pods-Calendar17.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FC256121EC77C6D024A3B065 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				57D1CA8982F85F9534834A29 /* Pods_Calendar17.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -185,9 +213,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93B398CC2CA2765E0069D8B9 /* Build configuration list for PBXNativeTarget "Calendar17" */;
 			buildPhases = (
+				F28DEE2ADF5F07B490FC7B50 /* [CP] Check Pods Manifest.lock */,
 				93B398BA2CA2765B0069D8B9 /* Sources */,
 				93B398BB2CA2765B0069D8B9 /* Frameworks */,
 				93B398BC2CA2765B0069D8B9 /* Resources */,
+				245B28833809F04AC6E9AE79 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -222,6 +252,9 @@
 				Base,
 			);
 			mainGroup = 93B398B52CA2765B0069D8B9;
+			packageReferences = (
+				C68203BD2D2B85640097E616 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 93B398BF2CA2765B0069D8B9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -238,10 +271,53 @@
 			files = (
 				93B398C92CA2765E0069D8B9 /* Preview Assets.xcassets in Resources */,
 				93B398C62CA2765E0069D8B9 /* Assets.xcassets in Resources */,
+				C68203BC2D2B840C0097E616 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		245B28833809F04AC6E9AE79 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Calendar17/Pods-Calendar17-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Calendar17/Pods-Calendar17-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Calendar17/Pods-Calendar17-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F28DEE2ADF5F07B490FC7B50 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Calendar17-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		93B398BA2CA2765B0069D8B9 /* Sources */ = {
@@ -413,13 +489,14 @@
 		};
 		93B398CD2CA2765E0069D8B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F8A9CBEA59C6F43E15A46E6 /* Pods-Calendar17.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Calendar17/Preview Content\"";
-				DEVELOPMENT_TEAM = KM863RHCL7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -443,13 +520,14 @@
 		};
 		93B398CE2CA2765E0069D8B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B7EBEF91CC6867D8F3DB504 /* Pods-Calendar17.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Calendar17/Preview Content\"";
-				DEVELOPMENT_TEAM = KM863RHCL7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -493,6 +571,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C68203BD2D2B85640097E616 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCVersionGroup section */
 		931DF5BE2CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld */ = {
