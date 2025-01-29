@@ -106,12 +106,37 @@ struct EditEventView: View {
     }
 
     private func deleteEvent() {
+        // Firestore から削除
+        let db = Firestore.firestore()
+        
+        // Firestore の "events" コレクションから削除
+        db.collection("events")
+            .whereField("name", isEqualTo: event.name ?? "") // 例えば名前で検索（ユニークな識別子があればそれを使う）
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Firestore の削除に失敗しました: \(error.localizedDescription)")
+                    return
+                }
+                for document in querySnapshot?.documents ?? [] {
+                    db.collection("events").document(document.documentID).delete { err in
+                        if let err = err {
+                            print("Firestore の削除に失敗しました: \(err.localizedDescription)")
+                        } else {
+                            print("Firestore のイベントを削除しました")
+                        }
+                    }
+                }
+            }
+
+        // Core Data から削除
         viewContext.delete(event)
         do {
             try viewContext.save()
             presentationMode.wrappedValue.dismiss() // 削除後に画面を閉じる
+            print("Core Data からイベントを削除しました")
         } catch {
             print("イベントの削除に失敗しました: \(error)")
         }
     }
+
 }

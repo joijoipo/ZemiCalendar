@@ -6,10 +6,23 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AppDelegate: View {
     
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var persistentContainer: NSPersistentContainer!
+
+        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+            persistentContainer = NSPersistentContainer(name: "YourModelName")
+            persistentContainer.loadPersistentStores { description, error in
+                if let error = error {
+                    fatalError("Failed to load persistent stores: \(error)")
+                }
+            }
+            return true
+        }
+    
     let year : Int = Calendar.current.component(.year, from: Date())
     let month : Int = Calendar.current.component(.month, from: Date())
     let day : Int = Calendar.current.component(.day, from: Date())

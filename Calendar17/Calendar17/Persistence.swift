@@ -12,11 +12,7 @@ class PersistenceController {
         description?.shouldMigrateStoreAutomatically = true
         description?.shouldInferMappingModelAutomatically = true
         
-        if inMemory {
-            description?.url = URL(fileURLWithPath: "/dev/null")
-        }
-        
-        deletePersistentStore()
+        //deletePersistentStore()
         
         // 永続ストアのロード
         container.loadPersistentStores { description, error in
