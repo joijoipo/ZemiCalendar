@@ -2,9 +2,8 @@ import SwiftUI
 import CoreData
 
 struct TotalCash: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\ .managedObjectContext) private var viewContext
 
-    // 現在選択中の月
     @State private var selectedMonth: Date = Date()
     
     @FetchRequest(
@@ -13,7 +12,6 @@ struct TotalCash: View {
     )
     private var allWorkData: FetchedResults<WorkData>
     
-    // 現在選択中の月のデータを取得
     private var workDataForSelectedMonth: [WorkData] {
         allWorkData.filter { workData in
             guard let startTime = workData.startTime else { return false }
@@ -21,32 +19,26 @@ struct TotalCash: View {
         }
     }
 
-    
-    @State private var targetWage: Double = 100000 // 目標給与
+    @State private var targetWage: Double = 100000
 
-    // 現在選択中の月の合計給与
     private var totalWageForMonth: Int {
         workDataForSelectedMonth.reduce(0) { total, workData in
             total + calculateWage(for: workData)
         }
     }
 
-
-    // 月の実際の合計給与
     private var totalRealWageForMonth: Int {
         workDataForSelectedMonth
             .filter { $0.isPastWork() }
             .reduce(0) { $0 + calculateRealWage(for: $1) }
     }
 
-    // 合計勤務時間（分単位）
     private var totalWorkingMinutesForMonth: Int {
         workDataForSelectedMonth
             .filter { $0.isPastWork() }
             .reduce(0) { $0 + calculateWorkingMinutes(for: $1) }
     }
 
-    // 合計勤務時間を「○時間○分」の形式でフォーマット
     private var formattedWorkingHours: String {
         let hours = totalWorkingMinutesForMonth / 60
         let minutes = totalWorkingMinutesForMonth % 60
@@ -57,21 +49,16 @@ struct TotalCash: View {
         guard let startTime = workData.startTime, let endTime = workData.endTime else { return 0 }
         let hourlyWage = Int(workData.money)
         let totalMinutes = calculateMinutes(from: startTime, to: endTime)
-
         return (hourlyWage * totalMinutes) / 60
     }
 
-
     func calculateRealWage(for workData: WorkData) -> Int {
+        guard let realSTime = workData.realSTime, let realETime = workData.realETime else { return 0 }
         let baseWage = Int(workData.money)
-        
-        // Night shift minutes calculation
-        let nightShiftMinutes = calculateNightShiftMinutes(start: workData.startTime, end: workData.endTime)
-        
-        // OverTime calculation
+        let totalrealMinutes = calculateMinutes(from: realSTime, to: realETime)
+        let nightShiftMinutes = calculateNightShiftMinutes(start: workData.realSTime, end: workData.realETime)
         let overTimeRate = workData.overTime.map { calculateMinutes(from: $0, to: Date()) } ?? 0
-        
-        return baseWage + (nightShiftMinutes * overTimeRate)
+        return (baseWage * totalrealMinutes/60) + (nightShiftMinutes * overTimeRate)
     }
 
     private func calculateWorkingMinutes(for workData: WorkData) -> Int {
@@ -98,14 +85,12 @@ struct TotalCash: View {
         return max(0, Int(interval / 60))
     }
 
-    // 月の切り替え
     private func changeMonth(by offset: Int) {
         if let newMonth = Calendar.current.date(byAdding: .month, value: offset, to: selectedMonth) {
             selectedMonth = newMonth
         }
     }
 
-    // 月をフォーマット
     private func formattedMonth(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy年MM月"
@@ -113,49 +98,52 @@ struct TotalCash: View {
     }
 
     var body: some View {
-        VStack(spacing: 20) {
-            // 現在の月表示
-            Text("給与管理 (\(formattedMonth(selectedMonth)))")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
-
-            // 給与情報のカードビュー
-            VStack(spacing: 15) {
-                CardView(title: "合計給与", value: "¥\(totalWageForMonth)", icon: "yen")
-                CardView(title: "実際の合計給与", value: "¥\(totalRealWageForMonth)", icon: "yen")
-                CardView(title: "合計勤務時間", value: formattedWorkingHours, icon: "clock")
-            }
-            
-            
-
-            // 月変更ボタン
-            HStack {
-                Button(action: { changeMonth(by: -1) }) {
-                    Text("前月")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
+        GeometryReader { geometry in
+            VStack(spacing: 20) {
                 Spacer()
-                Button(action: { changeMonth(by: 1) }) {
-                    Text("次月")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                Text("給与管理 (\(formattedMonth(selectedMonth)))")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    .padding(.top, 20)
+                
+                VStack(spacing: 15) {
+                    CardView(title: "合計給与", value: "¥\(totalWageForMonth)", icon: "yen")
+                    CardView(title: "実際の合計給与", value: "¥\(totalRealWageForMonth)", icon: "yen")
+                    CardView(title: "合計勤務時間", value: formattedWorkingHours, icon: "clock")
                 }
+                .frame(width: geometry.size.width * 0.9)
+                .padding()
+                
+                HStack {
+                    Button(action: { changeMonth(by: -1) }) {
+                        Text("前月")
+                            .padding()
+                            .frame(width: geometry.size.width * 0.4)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    Spacer()
+                    Button(action: { changeMonth(by: 1) }) {
+                        Text("次月")
+                            .padding()
+                            .frame(width: geometry.size.width * 0.4)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                }
+                .padding(.horizontal, 30)
+                Spacer()
             }
-            .padding(.horizontal, 30)
-
-            Spacer()
+            .frame(width: geometry.size.width)
+            .background(Color(.systemGroupedBackground))
+            .edgesIgnoringSafeArea(.all)
         }
-        .padding()
-        .background(Color(.systemGroupedBackground))
-        .edgesIgnoringSafeArea(.all)
     }
 }
+
 struct CardView: View {
     let title: String
     let value: String
