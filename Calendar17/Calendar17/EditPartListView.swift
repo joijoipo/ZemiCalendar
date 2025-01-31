@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreData
+import FirebaseFirestore
 
 struct EditPartListView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -74,9 +75,9 @@ struct EditPartListView: View {
         })
     }
 
-    // 編集内容を保存
     private func saveChanges() {
-        // 入力値をworkerに反映
+
+        // 入力値を worker に反映
         worker.name = name
         
         if let wageValue = Double(wage) {
@@ -91,25 +92,67 @@ struct EditPartListView: View {
             worker.premiumWages = premiumWagesValue
         }
 
-        // CoreDataに保存
+        // Firestore への保存処理
+        let db = Firestore.firestore()
+        let workerData: [String: Any] = [
+            "name": worker.name ?? "無名",  // もしnameがnilの場合、"無名"をデフォルトに
+            "money": worker.money,
+            "move": worker.move,
+            "premiumWages": worker.premiumWages
+        ]
+        
+        db.collection("partTimeList").addDocument(data: workerData){ error in
+            if let error = error {
+                print("Firestore への保存に失敗しました: \(error.localizedDescription)")
+            } else {
+                print("Firestore にデータが保存されました")
+            }
+        }
+
+        // CoreData に保存
         do {
             try viewContext.save()
+            print("CoreData にデータが保存されました: \(worker.name ?? "無名")")
         } catch {
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            print("CoreData の保存に失敗しました: \(nsError), \(nsError.userInfo)")
         }
     }
 
+
     // workerを削除
     private func deleteWorker() {
+        // Firestore から削除
+        let db = Firestore.firestore()
+        db.collection("partTimeList")
+            .whereField("name", isEqualTo: worker.name ?? "") // 名前で検索（固有IDがあればそちらを使用）
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Firestore の削除に失敗しました: \(error.localizedDescription)")
+                    return
+                }
+                for document in querySnapshot?.documents ?? [] {
+                    db.collection("partTimeList").document(document.documentID).delete { err in
+                        if let err = err {
+                            print("Firestore の削除に失敗しました: \(err.localizedDescription)")
+                        } else {
+                            print("Firestore のデータを削除しました")
+                        }
+                    }
+                }
+            }
+        
+        // CoreData から削除
         viewContext.delete(worker)
         do {
             try viewContext.save()
+            print("CoreData から削除しました")
         } catch {
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            print("CoreData の削除に失敗しました: \(nsError), \(nsError.userInfo)")
         }
     }
+
 }
 
 #Preview {

@@ -107,9 +107,9 @@ struct calendarView: View {
 //---------------------------------------------------------------------------
         }.navigationBarBackButtonHidden(true).onAppear{
             requestNotificationPermission()
-            //fetchHolidays{
+            fetchHolidays{
             }
-        //}
+        }
     }
     
     func NextMonth(){

@@ -96,12 +96,37 @@ struct EditWorkDataView: View {
     }
 
     private func deleteWorkData() {
-        viewContext.delete(workData) // Core Data から削除
+        // Firestore から削除
+        let db = Firestore.firestore()
+        
+        // Firestore の "workData" コレクションから削除
+        db.collection("workData")
+            .whereField("name", isEqualTo: workData.name ?? "") // 例えば名前で検索（ユニークな識別子があればそれを使う）
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Firestore の削除に失敗しました: \(error.localizedDescription)")
+                    return
+                }
+                for document in querySnapshot?.documents ?? [] {
+                    db.collection("workData").document(document.documentID).delete { err in
+                        if let err = err {
+                            print("Firestore の削除に失敗しました: \(err.localizedDescription)")
+                        } else {
+                            print("Firestore のデータを削除しました")
+                        }
+                    }
+                }
+            }
+
+        // Core Data から削除
+        viewContext.delete(workData)
         do {
             try viewContext.save()
             presentationMode.wrappedValue.dismiss() // 削除後に画面を閉じる
+            print("Core Data から削除しました")
         } catch {
             print("削除エラー: \(error)")
         }
     }
+
 }

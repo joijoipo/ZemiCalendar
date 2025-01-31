@@ -49,6 +49,8 @@
 		C69732462CF58D6E001410CD /* Color16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732452CF58D66001410CD /* Color16.swift */; };
 		C69732482CF59799001410CD /* EditPartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69732472CF5978D001410CD /* EditPartListView.swift */; };
 		C6C698F12D19431F00989B0E /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C698F02D19431500989B0E /* EventListView.swift */; };
+		C6C973F02D4A092800C0483C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C973EF2D4A092100C0483C /* LoginView.swift */; };
+		C6C973F22D4A0ACB00C0483C /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C973F12D4A0AC800C0483C /* SignUpView.swift */; };
 		C6D752522CF82DCD00F5907C /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752512CF82DC100F5907C /* EventDetailView.swift */; };
 		C6D752542CF841C500F5907C /* EditWorkDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D752532CF841BC00F5907C /* EditWorkDataView.swift */; };
 /* End PBXBuildFile section */
@@ -98,6 +100,8 @@
 		C69732452CF58D66001410CD /* Color16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color16.swift; sourceTree = "<group>"; };
 		C69732472CF5978D001410CD /* EditPartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPartListView.swift; sourceTree = "<group>"; };
 		C6C698F02D19431500989B0E /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
+		C6C973EF2D4A092100C0483C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C6C973F12D4A0AC800C0483C /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C6D752512CF82DC100F5907C /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		C6D752532CF841BC00F5907C /* EditWorkDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,8 +158,8 @@
 				C683CA6C2D11827300E13BC8 /* NightView.swift */,
 				93D726B92CB380FA00CCC15E /* AddWorkDataView.swift */,
 				9397EA592CEB21D600C7FCF2 /* AddEventView.swift */,
-				C69732472CF5978D001410CD /* EditPartListView.swift */,
 				C6D752532CF841BC00F5907C /* EditWorkDataView.swift */,
+				C69732472CF5978D001410CD /* EditPartListView.swift */,
 				C668093C2CFECBF0004898A5 /* EditEventView.swift */,
 				93B398DF2CA292EC0069D8B9 /* CalendarList.swift */,
 				C66823042CF7115D000ED318 /* AddNewWorkData.swift */,
@@ -163,6 +167,8 @@
 				93B398C32CA2765B0069D8B9 /* ContentView.swift */,
 				935BD82F2CA4779700FCBBF8 /* CalendarModel.swift */,
 				93B398DD2CA28AA70069D8B9 /* calendarView.swift */,
+				C6C973EF2D4A092100C0483C /* LoginView.swift */,
+				C6C973F12D4A0AC800C0483C /* SignUpView.swift */,
 				93B398CF2CA276EB0069D8B9 /* weekday.swift */,
 				9350C1A22CC630C9008A3BA3 /* holiday.swift */,
 				93318DD52CE733F4000A8AD9 /* AddPartView.swift */,
@@ -309,6 +315,7 @@
 				C668093D2CFECC02004898A5 /* EditEventView.swift in Sources */,
 				C683CA6D2D11828900E13BC8 /* NightView.swift in Sources */,
 				C66787542CEC1B150003572C /* Event+CoreDataProperties.swift in Sources */,
+				C6C973F02D4A092800C0483C /* LoginView.swift in Sources */,
 				9350C1A52CC65A2F008A3BA3 /* Test.swift in Sources */,
 				93B398C42CA2765B0069D8B9 /* ContentView.swift in Sources */,
 				93C128E82CAE6AAF00C90369 /* cash.swift in Sources */,
@@ -328,6 +335,7 @@
 				93B357472CDBC8F90019DF49 /* wakudata.swift in Sources */,
 				93B398D02CA276EB0069D8B9 /* weekday.swift in Sources */,
 				9368C9C52CD33F64005BF9C0 /* TotalCash.swift in Sources */,
+				C6C973F22D4A0ACB00C0483C /* SignUpView.swift in Sources */,
 				C69732482CF59799001410CD /* EditPartListView.swift in Sources */,
 				931DF5C02CCF2B6B0014B1F9 /* Calendar17.xcdatamodeld in Sources */,
 				935BD8302CA4779700FCBBF8 /* CalendarModel.swift in Sources */,
